@@ -1,0 +1,44 @@
+{
+    "pages": [
+        "page/component/index/index",
+        "page/component/client/client",
+        "page/component/login/login",
+        "page/component/opptunity/opptunity",
+        "page/component/opptunityDetail/opptunityDetail",
+        "page/component/my/my",
+        "page/component/loginList/loginList"
+    ],
+    "window": {
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "营销机会",
+        "navigationBarBackgroundColor": "#ffffff",
+        "backgroundColor": "#ffffff",
+        "enablePullDownRefresh": false
+    },
+    "tabBar": {
+        "backgroundColor": "#FFFFFF",
+        "color": "#999999",
+        "selectedColor": "#4a90e2",
+        "list": [
+            {
+                "pagePath": "page/component/index/index",
+                "iconPath": "images/tabbar_features.png",
+                "selectedIconPath": "images/tabbar_features-active.png",
+                "text": "功能"
+            },
+            {
+                "pagePath": "page/component/my/my",
+                "iconPath": "images/tabbar_my.png",
+                "selectedIconPath": "images/tabbar_my-active.png",
+                "text": "我的"
+            }
+        ]
+    },
+    "networkTimeout": {
+        "request": 10000,
+        "connectSocket": 10000,
+        "uploadFile": 10000,
+        "downloadFile": 10000
+    },
+    "debug": true
+}

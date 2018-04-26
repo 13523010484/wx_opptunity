@@ -1,0 +1,67 @@
+@import '/page/common/common.wxss';
+
+page {
+    background-color: #f5f5f5;
+}
+
+.page_avatar {
+    margin: 90rpx auto 40rpx;
+    width: 120rpx;
+    height: 120rpx;
+    border-radius: 50%;
+    background-color: #eee;
+}
+
+.page_avatar>image {
+    width: 120rpx;
+    height: 120rpx;
+    display: block;
+    border-radius: 50%;
+}
+
+.page_avatar>view {
+    line-height: 48rpx;
+    font-size: 32rpx;
+    text-align: center;
+    color: #666;
+}
+
+.item>view:first-child {
+    color: #333;
+}
+
+.item:nth-child(2) {
+    margin-top: 80rpx;
+}
+
+.item>view:last-child {
+    font-size: 26rpx;
+}
+
+.border-none {
+    border-bottom: none;
+}
+
+.account-management {
+    color: #cf372b;
+    margin-top: 36rpx;
+    position: relative;
+}
+
+.account-management:after {
+    content: " ";
+    display: inline-block;
+    height: 6px;
+    width: 6px;
+    border-width: 2px 2px 0 0;
+    border-color: #c8c8cd;
+    border-style: solid;
+    -webkit-transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+    transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+    position: relative;
+    top: -2px;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    margin-top: -4px;
+}

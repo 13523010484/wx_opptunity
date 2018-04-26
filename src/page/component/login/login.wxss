@@ -1,0 +1,51 @@
+.head {
+    padding-top: 60rpx;
+    height: 440rpx;
+    background-color: #4a90e2;
+}
+
+.head>view {
+    margin-top: 30rpx;
+    font-size: 52rpx;
+    font-weight: 300;
+    line-height: 1.5;
+    text-align: center;
+    color: #fff;
+}
+
+.body {
+    margin: -140rpx 60rpx 0;
+}
+
+.body_input {
+    background-color: #fff;
+    box-shadow: 0 24rpx 44rpx 0 rgba(0, 0, 0, 0.15);
+}
+
+.username, .password {
+    width: 100%;
+    height: 120rpx;
+    text-align: center;
+}
+
+input:first-child {
+    position: relative;
+}
+
+input:first-child::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 1px;
+    border-bottom: 1px solid #e5e5e5;
+    transform-origin: 0 100%;
+    transform: scaleY(0.5);
+    z-index: 2;
+}
+
+.body_btn .btn {
+    margin-top: 80rpx;
+    background-color: #4a90e2;
+}

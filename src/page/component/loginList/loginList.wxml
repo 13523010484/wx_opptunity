@@ -1,0 +1,25 @@
+<view class='page'>
+    <radio-group>
+        <label class="radio" bindtap='bindNewUser' wx:for='{{listUser}}' wx:key='index' id='{{listUser[index].user_id}}'>
+            <view class='account_wrap'>
+                <view class='account_wrap-hd'>
+                    <image src='{{userInfo.avatarUrl}}' />
+                    <view class='account-info'>
+                        <text>{{userInfo.nickName}}</text>
+                        <text>{{item.name}}</text>
+                    </view>
+                </view>
+                <view class='account_wrap-bd'>
+                    <radio value="" checked="{{listUser[index].user_id == cur_user_id?'true':''}}" />
+                </view>
+            </view>
+        </label>
+    </radio-group>
+
+    <view class='account_wrap' bindtap='jumpLoginPage'>
+        <view class='account_wrap-hd account_add-new'>
+            <image mode='widthFix' src='/images/icon_add.png' />
+            <view>添加或绑定新账号</view>
+        </view>
+    </view>
+</view>

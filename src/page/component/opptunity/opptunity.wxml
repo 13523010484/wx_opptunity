@@ -1,0 +1,23 @@
+<view class="page-section">
+    <view class="weui-cells weui-cells_after-title">
+        <view class="tab">
+            <view class=" {{vt==''? 'active' : ''}}" bindtap="changeTag" id="">所有</view>
+            <view class=" {{vt=='p'? 'active' : ''}}" bindtap="changeTag" id="p">来电</view>
+            <view class=" {{vt=='v'? 'active' : ''}}" bindtap="changeTag" id="v">来访</view>
+        </view>
+        <view class="items" wx-if="{{hasLoading && list.length>0}}">
+            <view wx:for="{{list}}" wx:key="{{id}}">
+                <navigator url='../opptunityDetail/opptunityDetail?id={{item.id}}' class="item">
+                    <view>
+                        <text class='user_name'>{{item.name}}</text>
+                        <text class='user_gender'>{{item.gender==0?'♀':'♂'}}</text>
+                    </view>
+                    <view>{{item.visit_time}}</view>
+                </navigator>
+            </view>
+        </view>
+    </view>
+    <view class="empty" wx-if="{{hasLoading && list.length == 0}}"> 暂无数据哦～</view>
+    <view class="empty" wx-if="{{list.length == total}}"> 没有更多数据了哦～</view>
+    <view class="load_more" wx-if="{{list.length>0 && lodeMore == true}}">加载更多..</view>
+</view>

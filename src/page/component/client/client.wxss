@@ -1,0 +1,179 @@
+@import '/page/common/common.wxss';
+
+page{
+    background-color: #f5f5f5;
+}
+
+.page-part {
+    background-color: #fff;
+    border-bottom: 1rpx #eee solid;
+}
+
+.item {
+    color: #333;
+}
+
+.list {
+    font-size: 30rpx;
+    padding: 0 24rpx;
+    height: 90rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.list-seller {
+    display: flex;
+    font-size: 28rpx;
+}
+
+.list-seller>view:last-child {
+    font-size: 28rpx;
+}
+
+.list-seller>view:last-child {
+    color: #999;
+}
+
+.icon-cancel {
+    transform: rotate(45deg);
+}
+
+.item-wrap {
+    border-top: 1rpx #eee solid;
+}
+
+.item-wrap label {
+    height: 90rpx;
+    line-height: 90rpx;
+    display: block;
+    border-bottom: 1rpx #eee solid;
+}
+
+.item-wrap label:last-child {
+    border-bottom: none;
+}
+
+.item-wrap label>text {
+    font-size: 28rpx;
+    color: #666;
+}
+
+.item-wrap label>text:last-child {
+    position: absolute;
+    right: 24rpx;
+    margin-right: 48rpx;
+}
+
+.item-wrap .item {
+    padding: 0 48rpx;
+}
+
+.radio-group, .input-tel view:last-child {
+    height: 60rpx;
+    line-height: 60rpx;
+    font-size: 24rpx;
+    border: 1px #4a90e2 solid;
+    border-radius: 10rpx;
+    text-align: center;
+}
+
+.radio-group {
+    width: 220rpx;
+    display: flex;
+    color: #4a90e2;
+}
+
+.radio-group>view {
+    width: 100%;
+}
+
+.radio-group>view>label {
+    flex: 1;
+    display: block;
+    text-align: center;
+}
+
+.ui-check radio {
+    display: none;
+}
+
+.ui-check radio[checked]+.cell {
+    color: #fff;
+    background-color: #4a90e2;
+}
+
+checkbox .wx-checkbox-input {
+    border-color: #fff;
+    margin-left: 24rpx;
+    margin-right: 48rpx;
+}
+
+checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+    text-align: center;
+    line-height: 45rpx;
+}
+
+checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
+    content: '\EA08';
+    color: #4a90e2;
+}
+
+.input-tel {
+    justify-content: flex-start;
+}
+
+.input-tel>view:last-child {
+    position: absolute;
+    right: 24rpx;
+}
+
+.input-tel view:last-child {
+    width: 90rpx;
+    color: #fff;
+    background-color: #4a90e2;
+}
+
+.input-tel>input {
+    font-size: 28rpx;
+    color: #666;
+    border-radius: 5rpx;
+}
+
+.page-part_content {
+    font-size: 28rpx;
+    padding: 0 24rpx;
+}
+
+.page-part_content>view:first-child {
+    height: 90rpx;
+    line-height: 90rpx;
+}
+.page-part_content.note{
+    background-color: #fff;
+    margin-bottom: 40rpx;
+}
+
+.page-part_content .textarea {
+    color: #999;
+    font-size: 28rpx;
+    height: 90rpx;
+    width: 100%;
+}
+
+button.btn {
+    background-color: #4a90e2;
+    color: #fff;
+    width: 100%;
+}
+
+picker .picker, .current-day {
+    color: #999;
+}
+
+picker .disabled-color {
+    color: rgba(0, 0, 0, 0.3);
+}
+.border-none>view:last-child{
+    border-bottom: none;
+}

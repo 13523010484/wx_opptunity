@@ -1,0 +1,15 @@
+<view class='page'>
+    <view class='page_avatar'>
+        <image src='{{userInfo.avatarUrl}}' />
+        <view>{{userInfo.nickName}}</view>
+    </view>
+    <view class='item'>
+        <view>当前用户</view>
+        <view>{{user_name}}</view>
+    </view>
+    <view class='item border-none'>
+        <view>当前版本</view>
+        <view>v1.0.1</view>
+    </view>
+    <navigator class='item border-none account-management' url='/page/component/loginList/loginList'>账号管理 </navigator>
+</view>

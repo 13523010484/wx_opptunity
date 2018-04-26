@@ -1,0 +1,59 @@
+@import '/page/common/common.wxss';
+
+page {
+    background-color: #f5f5f5;
+}
+
+.item>view:first-child {
+    color: #333;
+    font-size: 30rpx;
+}
+
+.item>view:last-child {
+    color: #999;
+}
+
+.item-column {
+    min-height: 90rpx;
+    height: auto;
+    padding-bottom: 30rpx;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.item-column>view:first-child {
+    height: 90rpx;
+    line-height: 90rpx;
+    border-bottom: none;
+}
+
+.other-tel {
+    min-height: 90rpx;
+    height: auto;
+}
+
+.other-tel .tel {
+    width: 400rpx;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.other-tel .tel>view {
+    line-height: 60rpx;
+    margin-left: 16rpx;
+}
+
+.visit-record {
+    font-size: 24rpx;
+    color: #999;
+}
+
+.visit-record>view {
+    margin: 28rpx 24rpx 28rpx 96rpx;
+}
+
+.visit-record>view>text {
+    margin-right: 15rpx;
+}
