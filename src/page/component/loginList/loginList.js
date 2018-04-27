@@ -7,6 +7,9 @@ Page({
         userInfo: ''
     },
     onLoad: function () {
+        wx.showLoading({
+            title: '加载中...',
+        })
         var that = this;
         var userInfo = wx.getStorageSync('userInfo')
         var cur_user_id = wx.getStorageSync('curUserId')
@@ -28,6 +31,7 @@ Page({
                         }
                     })
                 }
+                wx.hideLoading();
             }
         })
     },

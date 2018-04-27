@@ -70,7 +70,6 @@ Page({
         this.getAgeLayer();// 获取年龄层的数据请求
         this.getCard();// 获取营销类型的数据请求
         this.getKnows();// 获取营销类型的数据请求
-
     },
 
     // changeStatus 点击icon图标显示销售员列表
@@ -90,7 +89,7 @@ Page({
                     groupUsers[index].checked = true
                 }
             })
-        }else {
+        } else {
             groupUsers.forEach(function (item, index) {
 
                 if (checkedArray.indexOf(item.user_id) >= 0) {
@@ -108,40 +107,13 @@ Page({
     checkboxChange: function (e) {
         var groupUsersIdArr = [];
         groupUsersIdArr.push(e.detail.value)
-
         this.setData({
             groupUsersIdStr: groupUsersIdArr[0]
         })
-
-        console.log('groupUsersIdStr:+++++');
-        console.log(this.data.groupUsersIdStr);
     },
-
-    // bindInputValue 获取用户输入的手机号
-    bindInputNum: function (e) {
+    bindInputNum: function(e){
         this.setData({
             phone: e.detail.value
-        })
-    },
-
-    // bindInputName 获取用户输入的姓名
-    bindInputName: function (e) {
-        this.setData({
-            inputName: e.detail.value
-        })
-    },
-
-    // radioChange 获取来访、来电的选中值
-    radioChange: function (e) {
-        this.setData({
-            vt: e.detail.value
-        })
-    },
-
-    // radioChange 获取性别女男的选中值
-    radioChange: function (e) {
-        this.setData({
-            gender: e.detail.value
         })
     },
 
@@ -178,7 +150,6 @@ Page({
                 phone: that.data.phone
             }
             app.request(checkMobileUrl, params, function (res) {
-                // console.log(res.data.isSecondVisit); 第二次来访，用户不能编辑
                 if (res.code == 200 && !res.data.hasProtected) {
                     var checkMobData = res.data ? res.data : '';
                     var inputName = checkMobData.name ? checkMobData.name : '';
@@ -368,18 +339,18 @@ Page({
     },
 
     // 点击按钮 提交表单数据
-    submit: function () {
+    formSubmit: function (e) {
         wx.showLoading({
             title: '上传中...',
         })
 
         var obj = {
-            customer_name: this.data.inputName,
+            customer_name: this.data.inputName ? this.data.inputName : e.detail.value.inputName,
             mobile: this.data.phone,
-            vt: this.data.vt,
-            gender: this.data.gender,
-            content: this.data.content,
-            note: this.data.note,
+            vt: this.data.vt ? this.data.vt : e.detail.value.vt,
+            gender: this.data.gender ? this.data.gender : e.detail.value.gender,
+            content: this.data.content ? this.data.content : d.detail.value.content,
+            note: this.data.note ? this.data.note : e.detail.value.note,
             visit_time: this.data.currentDay,
             age_composition_id: this.data.ageId,
             cognitive_approach_id: this.data.cognitive_approach_id,
@@ -397,12 +368,9 @@ Page({
             session_id: this.data.sessionId,
             mo_data: str
         };
-
-        console.log('-------------------');
         console.log(obj);
-        console.log(Boolean(this.data.phone && this.data.inputName && this.data.ageId && this.data.cardId && this.data.cognitive_approach_id && this.data.cognitive_approach_options_value));
 
-        if ((this.data.phone && this.data.inputName && this.data.ageId && this.data.cardId && this.data.cognitive_approach_id && this.data.cognitive_approach_options_value)) {
+        if (obj.mobile && obj.customer_name && this.data.ageId && this.data.cardId && this.data.cognitive_approach_id && this.data.cognitive_approach_options_value) {
             app.request(uploadUrl, params, function (res) {
                 if (res.code == 200) {
                     wx.hideLoading();

@@ -24,7 +24,6 @@ App({
                             method: 'POST',
                             header: { 'Content-Type': 'application/x-www-form-urlencoded' },
                             success: function (res) {
-                                //var union_id = res.data.data.union_id; 
                                 var sessionId = '';
                                 sessionId = res.data.data.session_id;
                                 var loginInfo = res.data.data;
@@ -36,7 +35,6 @@ App({
                                     })
                                 } else {
                                     wx.redirectTo({
-                                        //url: '/page/component/login/login?union_id=' + union_id,
                                         url: '/page/component/login/login',
                                     })
                                 }

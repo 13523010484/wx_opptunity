@@ -5,7 +5,7 @@ Page({
         userInfo: '',
         user_name: ''
     },
-    onLoad: function (options) {
+    onShow: function (options) {
         var that = this;
         var user_name = wx.getStorageSync('loginInfo').user_name
         wx.getUserInfo({
@@ -18,8 +18,5 @@ Page({
                 })
             }
         })
-    },
-    changeLogin: function () {
-       
     }
 })

@@ -155,9 +155,10 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
 }
 
 .page-part_content .textarea {
-    color: #999;
-    font-size: 28rpx;
-    height: 90rpx;
+    color: #666;
+    font-size: 30rpx;
+    min-height: 180rpx;
+    line-height: 48rpx;
     width: 100%;
 }
 

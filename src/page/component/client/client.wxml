@@ -1,119 +1,118 @@
 <view class='page'>
-    <!-- 销售员  -->
-    <view class='page-part'>
-        <view class='list' bindtap='changeStatus' id='open'>
-            <view class='list-seller' style=''>
-                <view>销售员：</view>
-                <view>{{user_name}}</view>
+    <form bindsubmit="formSubmit" bindreset="formReset">
+        <!-- 销售员  -->
+        <view class='page-part'>
+            <view class='list' bindtap='changeStatus' id='open'>
+                <view class='list-seller' style=''>
+                    <view>销售员：</view>
+                    <view>{{user_name}}</view>
+                </view>
+                <icon class='{{ open ? "" : "icon-cancel" }}' type='cancel' color='{{ open ? "" : "#4a90e2" }}' />
             </view>
-            <icon class='{{ open ? "" : "icon-cancel" }}' type='cancel' color='{{ open ? "" : "#4a90e2" }}' />
-        </view>
 
-        <checkbox-group class='item-wrap' wx:if="{{open}}" bindchange="checkboxChange">
-            <label wx:for='{{groupUsers}}' wx:key='{{index}}'>
-                <checkbox value='{{item.user_id}}' checked="{{item.checked}}" />
-                <text>{{item.name}}</text>
-                <text>{{item.mobile_phone}}</text>
-            </label>
-        </checkbox-group>
-        <view class='item-wrap border-none' style='border-bottom:none;' wx:if='{{!open && groupUsersIdStr.length>0}}'>
-            <view style='color:#999;padding-left:120rpx;' wx:for='{{groupUsers}}' wx:key='{{index}}' class='item' wx:if="{{item.checked}}">
-                <view>{{item.name}}</view>
-                <view>{{item.mobile_phone}}</view>
-            </view>
-        </view>
-
-    </view>
-
-    <!-- 访问类型  -->
-    <view class='item'>
-        <view>访问类型</view>
-        <radio-group class='radio-group' bindchange='radioChange'>
-            <view wx:for='{{vtTypeArr}}' wx:key='index'>
-                <label class='ui-check'>
-                    <radio value='{{index==0?"V":"P"}}' checked='{{index==0?"checked":""}}' />
-                    <view class='cell'>{{vtTypeArr[index]}}</view>
+            <checkbox-group class='item-wrap' wx:if="{{open}}" bindchange="checkboxChange">
+                <label wx:for='{{groupUsers}}' wx:key='{{index}}'>
+                    <checkbox value='{{item.user_id}}' checked="{{item.checked}}" />
+                    <text>{{item.name}}</text>
+                    <text>{{item.mobile_phone}}</text>
                 </label>
+            </checkbox-group>
+            <view class='item-wrap border-none' style='border-bottom:none;' wx:if='{{!open && groupUsersIdStr.length>0}}'>
+                <view style='color:#999;padding-left:120rpx;' wx:for='{{groupUsers}}' wx:key='{{index}}' class='item' wx:if="{{item.checked}}">
+                    <view>{{item.name}}</view>
+                    <view>{{item.mobile_phone}}</view>
+                </view>
             </view>
-        </radio-group>
-    </view>
 
-    <!-- 电话  -->
-    <view class='item input-tel'>
-        <view>电话：</view>
-        <input bindinput='bindInputNum' type='number' value='' placeholder='请输入手机号' />
-        <view bindtap='checkTelNum'>检测</view>
-    </view>
-
-    <view hidden='{{hiddenStatus}}'>
-
-        <!-- 姓名  -->
-        <view class='item input-tel'>
-            <view>姓名：</view>
-            <input bindinput='bindInputName' type='text' value='{{inputName}}' placeholder='请输入姓名' />
         </view>
+
         <!-- 访问类型  -->
         <view class='item'>
-            <view>性别</view>
-            <radio-group class='radio-group' bindchange='radioChange'>
-                <view wx:for='{{genderArr}}' wx:key='index'>
+            <view>访问类型</view>
+            <radio-group class='radio-group' name='vt'>
+                <view wx:for='{{vtTypeArr}}' wx:key='index'>
                     <label class='ui-check'>
-                        <radio value='{{index==0?"1":"0"}}' checked='{{index==0?"checked":""}}' />
-                        <view class='cell'>{{genderArr[index]}}</view>
+                        <radio value='{{index==0?"V":"P"}}' checked='{{index==0?"checked":""}}' />
+                        <view class='cell'>{{vtTypeArr[index]}}</view>
                     </label>
                 </view>
             </radio-group>
         </view>
 
-        <!-- 年龄层 -->
-        <picker bindchange="bindPickerAge" value="{{ageIndex}}" range="{{ageLayerArr}}">
-            <view class='item'>
-                <view>{{ageLayerData.dict_name}}</view>
-                <view class="picker">{{ageViewData}}</view>
-            </view>
-        </picker>
-
-        <!-- 营销类型  -->
-        <picker bindchange="bindPickerCard" value="{{cardIndex}}" range="{{cardArr}}">
-            <view class='item'>
-                <view>{{cardData.dict_name}}</view>
-                <view class="picker">{{sellViewData}}</view>
-            </view>
-        </picker>
-
-        <!-- 认知途径  -->
-        <picker bindchange="bindPickerKnows" value="{{knowsIndex}}" range="{{knowsFirstArr}}">
-            <view class='item'>
-                <view>认知渠道类别</view>
-                <view class="picker">{{knowsViewData}}</view>
-            </view>
-        </picker>
-        <!-- 认知途径  -->
-        <picker bindchange="bindPickerPlace" value="{{placeIndex}}" range="{{knowsSecondArr}}">
-            <view class='item'>
-                <view>认知渠道</view>
-                <view class='picker {{disabled == true?"disabled-color":""}}'>{{knowsViewData2||'请先选择认知渠道类别'}}</view>
-            </view>
-        </picker>
-        <!-- 访问日期  -->
-        <view class='item'>
-            <view>访问日期</view>
-            <view class='current-day'>{{currentDay}}</view>
+        <!-- 电话  -->
+        <view class='item input-tel'>
+            <view>电话：</view>
+            <input bindinput='bindInputNum' type='number' placeholder='请输入手机号' />
+            <view bindtap='checkTelNum'>检测</view>
         </view>
 
-        <!-- 备注  -->
-        <view class='page-part page-part_content'>
-            <view>内容：</view>
-            <!-- <input class='textarea' bindinput='textareaContent' placeholder="请输入..." /> -->
-             <textarea class='textarea' name='content' bindinput='textareaContent' placeholder="请输入..."></textarea>
-        </view>
+        <view hidden='{{hiddenStatus}}'>
+            <!-- 姓名  -->
+            <view class='item input-tel'>
+                <view>姓名：</view>
+                <input type='text' name='inputName' value='{{inputName}}' placeholder='请输入姓名' />
+            </view>
+            <!-- 访问类型  -->
+            <view class='item'>
+                <view>性别</view>
+                <radio-group class='radio-group' name='gender'>
+                    <view wx:for='{{genderArr}}' wx:key='index'>
+                        <label class='ui-check'>
+                            <radio value='{{index==0?"1":"0"}}' checked='{{index==0?"checked":""}}' />
+                            <view class='cell'>{{genderArr[index]}}</view>
+                        </label>
+                    </view>
+                </radio-group>
+            </view>
 
-        <!-- 备注  -->
-        <view class='page-part_content note'>
-            <view>备注：</view>
-            <!-- <input class='textarea' bindinput='textareaNote' placeholder="请输入..." /> -->
-            <textarea class='textarea' name='note' bindinput='textareaNote' placeholder='请输入...'></textarea>
+            <!-- 年龄层 -->
+            <picker bindchange="bindPickerAge" value="{{ageIndex}}" range="{{ageLayerArr}}">
+                <view class='item'>
+                    <view>{{ageLayerData.dict_name}}</view>
+                    <view class="picker">{{ageViewData}}</view>
+                </view>
+            </picker>
+
+            <!-- 营销类型  -->
+            <picker bindchange="bindPickerCard" value="{{cardIndex}}" range="{{cardArr}}">
+                <view class='item'>
+                    <view>{{cardData.dict_name}}</view>
+                    <view class="picker">{{sellViewData}}</view>
+                </view>
+            </picker>
+
+            <!-- 认知途径  -->
+            <picker bindchange="bindPickerKnows" value="{{knowsIndex}}" range="{{knowsFirstArr}}">
+                <view class='item'>
+                    <view>认知渠道类别</view>
+                    <view class="picker">{{knowsViewData}}</view>
+                </view>
+            </picker>
+            <!-- 认知途径  -->
+            <picker disabled='{{disabled}}' bindchange="bindPickerPlace" value="{{placeIndex}}" range="{{knowsSecondArr}}">
+                <view class='item'>
+                    <view>认知渠道</view>
+                    <view class='picker {{disabled == true?"disabled-color":""}}'>{{knowsViewData2||'请先选择认知渠道类别'}}</view>
+                </view>
+            </picker>
+            <!-- 访问日期  -->
+            <view class='item'>
+                <view>访问日期</view>
+                <view class='current-day'>{{currentDay}}</view>
+            </view>
+
+            <!-- 备注  -->
+            <view class='page-part page-part_content'>
+                <view>内容：</view>
+                <textarea class='textarea' auto-height='true' maxlength='' name='content' bindinput='textareaContent' placeholder="请输入..."></textarea>
+            </view>
+
+            <!-- 备注  -->
+            <view class='page-part_content note'>
+                <view>备注：</view>
+                <textarea class='textarea' auto-height='true' name='note' bindinput='textareaNote' placeholder='请输入...'></textarea>
+            </view>
+            <button formType="submit" class='btn'>保存</button>
         </view>
-        <button bindtap='submit' class='btn'>保存</button>
-    </view>
+    </form>
 </view>
