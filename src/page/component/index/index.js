@@ -1,6 +1,5 @@
 Page({
     data: {
-        telNum: '17621207819'
     },
     onLoad: function () {
         const updateManager = wx.getUpdateManager();
@@ -8,7 +7,6 @@ Page({
             // 请求完新版本信息的回调
             console.log(res.hasUpdate)
         })
-
         updateManager.onUpdateReady(function () {
             wx.showModal({
                 title: '更新提示',

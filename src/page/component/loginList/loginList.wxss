@@ -25,10 +25,6 @@ page {
     border-bottom: 1rpx #eee solid;
 }
 
-radio-group {
-    /* margin-top: 36rpx; */
-}
-
 .account_wrap-hd {
     display: flex;
     align-items: center;
@@ -68,8 +64,6 @@ radio-group {
     width: 48rpx;
     margin-left: 21rpx;
 }
-
-/*  重写 radio 样式  */
 
 radio .wx-radio-input {
     border: none;

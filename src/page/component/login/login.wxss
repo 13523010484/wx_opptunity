@@ -1,51 +1,37 @@
-.head {
-    padding-top: 60rpx;
-    height: 440rpx;
-    background-color: #4a90e2;
+.page {
+    margin-top: 148rpx;
+    padding: 0 80rpx;
 }
 
-.head>view {
-    margin-top: 30rpx;
-    font-size: 52rpx;
-    font-weight: 300;
-    line-height: 1.5;
-    text-align: center;
-    color: #fff;
-}
-
-.body {
-    margin: -140rpx 60rpx 0;
-}
-
-.body_input {
-    background-color: #fff;
-    box-shadow: 0 24rpx 44rpx 0 rgba(0, 0, 0, 0.15);
+.page_input {
+    margin-bottom: 50rpx;
 }
 
 .username, .password {
-    width: 100%;
-    height: 120rpx;
-    text-align: center;
+    display: flex;
+    height: 90rpx;
+    line-height: 90rpx;
+    font-size: 38rpx;
+    color: #333;
+    border-bottom: 1rpx #dadada solid;
 }
 
-input:first-child {
-    position: relative;
+.username {
+    margin-bottom: 40rpx;
 }
 
-input:first-child::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    height: 1px;
-    border-bottom: 1px solid #e5e5e5;
-    transform-origin: 0 100%;
-    transform: scaleY(0.5);
-    z-index: 2;
+.username>text:first-child, .password>text:first-child {
+    margin-right: 20rpx;
+    width: 120rpx;
 }
 
-.body_btn .btn {
-    margin-top: 80rpx;
+.page_btn>button {
+    height: 86rpx;
+    line-height: 86rpx;
+    font-size: 38rpx;
     background-color: #4a90e2;
+    color: #fff;
+}
+.page_btn>button.button-hover{
+    background-color: #2b6bb5;
 }

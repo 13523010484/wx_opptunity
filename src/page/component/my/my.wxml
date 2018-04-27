@@ -9,7 +9,7 @@
     </view>
     <view class='item border-none'>
         <view>当前版本</view>
-        <view>v1.0.1</view>
+        <view>v1.0.2</view>
     </view>
     <navigator class='item border-none account-management' url='/page/component/loginList/loginList'>账号管理 </navigator>
 </view>

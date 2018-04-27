@@ -10,7 +10,7 @@ function get_data(that) {
                   // 用户名或者密码输入错误时
                   if (res.code == 400) {
                       wx.showToast({
-                          title: res.msg,
+                          title: '请输入正确的用户名和密码！',
                           icon: 'none',
                           duration: 4000
                       })

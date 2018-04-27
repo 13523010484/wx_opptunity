@@ -349,7 +349,7 @@ Page({
             mobile: this.data.phone,
             vt: this.data.vt ? this.data.vt : e.detail.value.vt,
             gender: this.data.gender ? this.data.gender : e.detail.value.gender,
-            content: this.data.content ? this.data.content : d.detail.value.content,
+            content: this.data.content ? this.data.content : e.detail.value.content,
             note: this.data.note ? this.data.note : e.detail.value.note,
             visit_time: this.data.currentDay,
             age_composition_id: this.data.ageId,
@@ -370,7 +370,7 @@ Page({
         };
         console.log(obj);
 
-        if (obj.mobile && obj.customer_name && this.data.ageId && this.data.cardId && this.data.cognitive_approach_id && this.data.cognitive_approach_options_value) {
+        if (obj.mobile && obj.customer_name && obj.content && this.data.ageId && this.data.cardId && this.data.cognitive_approach_id && this.data.cognitive_approach_options_value) {
             app.request(uploadUrl, params, function (res) {
                 if (res.code == 200) {
                     wx.hideLoading();
@@ -382,7 +382,7 @@ Page({
                     } else if (res.data[0].isOk == false) {
                         console.log('保存失败！');
                         wx.showToast({
-                            title: res.data[0].result,
+                            title: '上传失败，'+res.data[0].result,
                             icon: 'none',
                             duration: 4000
                         })
@@ -391,7 +391,7 @@ Page({
                     wx.hideLoading();
                     wx.showModal({
                         title: '提示',
-                        content: '上传失败,除备注外都是必填项',
+                        content: '网络连接错误，请重新上传！',
                         showCancel: false
                     })
                 }
@@ -401,7 +401,7 @@ Page({
             wx.hideLoading();
             wx.showModal({
                 title: '提示',
-                content: '除备注外都是必填项！',
+                content: '上传失败，除备注外都是必填项！',
                 showCancel: false
             })
         }
