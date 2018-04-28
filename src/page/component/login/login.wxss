@@ -15,14 +15,16 @@
     color: #333;
     border-bottom: 1rpx #dadada solid;
 }
+.username>input, .password>input{
+    height: 100%;
+}
 
 .username {
     margin-bottom: 40rpx;
 }
 
 .username>text:first-child, .password>text:first-child {
-    margin-right: 20rpx;
-    width: 120rpx;
+    width: 140rpx;
 }
 
 .page_btn>button {
@@ -32,6 +34,7 @@
     background-color: #4a90e2;
     color: #fff;
 }
-.page_btn>button.button-hover{
+
+.page_btn>button.button-hover {
     background-color: #2b6bb5;
 }
