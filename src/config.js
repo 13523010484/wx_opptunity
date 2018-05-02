@@ -1,7 +1,7 @@
 /**
  * 小程序配置文件
  */
-var host = "https://cms.orenda.com.cn"
+
 // var host = "http://192.16.8.40:8081"
 
 
