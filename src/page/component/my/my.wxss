@@ -6,17 +6,15 @@ page {
 
 .page_avatar {
     margin: 90rpx auto 40rpx;
-    width: 120rpx;
-    height: 120rpx;
-    border-radius: 50%;
-    background-color: #eee;
 }
 
 .page_avatar>image {
+    margin: 0 auto;
     width: 120rpx;
     height: 120rpx;
     display: block;
     border-radius: 50%;
+    background-color: #eee;
 }
 
 .page_avatar>view {
@@ -24,6 +22,7 @@ page {
     font-size: 32rpx;
     text-align: center;
     color: #666;
+    margin-top: 10rpx;
 }
 
 .item>view:first-child {

@@ -25,49 +25,42 @@ App({
         updateManager.onUpdateFailed(function () {
             // 新的版本下载失败
         })
-
         var self = this, sessionId = wx.getStorageSync('sessionId');
+        wx.login({
+            success: function (res) {
+                var wx_code = res.code;
+                if (wx_code) {
+                    wx.request({
+                        url: self.api.unionIdUrl,
+                        data: { wx_code: wx_code },
+                        method: 'POST',
+                        header: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        success: function (res) {
 
-        if (sessionId) {
-            wx.switchTab({
-                url: '/page/component/index/index',
-            })
-        } else {
-            wx.login({
-                success: function (res) {
-                    var wx_code = res.code;
-                    if (wx_code) {
-                        wx.request({
-                            url: self.api.unionIdUrl,
-                            data: { wx_code: wx_code },
-                            method: 'POST',
-                            header: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                            success: function (res) {
+                            if (res.data.data.session_id && res.data.data.session_id != '') {
                                 var sessionId = '';
                                 sessionId = res.data.data.session_id;
                                 var loginInfo = res.data.data;
-                                if (res.data.data.session_id && res.data.data.session_id != '') {
-                                    wx.setStorageSync('sessionId', sessionId);
-                                    wx.setStorageSync('loginInfo', loginInfo);
-                                    wx.switchTab({
-                                        url: '/page/component/index/index',
-                                    })
-                                } else {
-                                    wx.redirectTo({
-                                        url: '/page/component/login/login',
-                                    })
-                                }
-                            },
-                            fail: function (res) {
-                                console.log('res fail');
+                                wx.setStorageSync('sessionId', sessionId);
+                                wx.setStorageSync('loginInfo', loginInfo);
+                                wx.switchTab({
+                                    url: '/page/component/index/index',
+                                })
+                            } else {
+                                wx.redirectTo({
+                                    url: '/page/component/login/login',
+                                })
                             }
-                        })
-                    } else {
-                        console.log('登录失败！')
-                    }
+                        },
+                        fail: function (res) {
+                            console.log('res fail');
+                        }
+                    })
+                } else {
+                    console.log('登录失败！')
                 }
-            });
-        }
+            }
+        });
     },
     request(url, param, callback, method, header) {
         wx.request({

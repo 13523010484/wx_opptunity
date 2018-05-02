@@ -68,6 +68,7 @@ Page({
 
     // 添加绑定新账号
     jumpLoginPage: function () {
+        console.log(this);
         wx.navigateTo({
             url: '/page/component/login/login',
         })
