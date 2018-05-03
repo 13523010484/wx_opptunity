@@ -37,8 +37,17 @@ App({
                         header: { 'Content-Type': 'application/x-www-form-urlencoded' },
                         success: function (res) {
 
+                            console.log('检测接口，成功之后返回的数据--------');
+                            console.log(res);
+                            console.log('接口返回的数据结束');
+                            console.log('if的第一个条件判断开始');
+                            console.log(Boolean(res.data.data.session_id && res.data.data.session_id != ''));
+                            console.log('if的第一个条件判断结束');
                             if (res.data.data.session_id && res.data.data.session_id != '') {
                                 var sessionId = '';
+                                console.log('**********************')
+                                console.log(res.data);
+                                console.log(Boolean(res.data.data.session_id && res.data.data.session_id != ''));
                                 sessionId = res.data.data.session_id;
                                 var loginInfo = res.data.data;
                                 wx.setStorageSync('sessionId', sessionId);
@@ -47,6 +56,8 @@ App({
                                     url: '/page/component/index/index',
                                 })
                             } else {
+                                console.log('1111111111111111');
+                                console.log('用户尚未进行绑定跳转到登录页面');
                                 wx.redirectTo({
                                     url: '/page/component/login/login',
                                 })

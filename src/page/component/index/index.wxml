@@ -1,4 +1,5 @@
 <view class='page'>
     <view bindtap="client">登记客户</view>
     <view bindtap="opptunity">我的营销机会</view>
+    <view bindtap='test'>测试</view>
 </view>
