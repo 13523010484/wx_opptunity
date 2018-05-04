@@ -5,10 +5,8 @@ function get_data(that) {
    wx.login({
       success: function(res){
           var wx_code = res.code;
-
           if (wx_code){
               app.request(app.api.userLoginUrl, { login_name: $this.data.login_name, password: $this.data.password, wx_code: wx_code }, function (res) {
-                  
                   // 用户名或者密码输入错误时
                   if (res.code == 400) {
                       wx.showToast({

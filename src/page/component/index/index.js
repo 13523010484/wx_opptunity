@@ -12,11 +12,5 @@ Page({
         wx.navigateTo({
             url: '/page/component/opptunity/opptunity'
         })
-    },
-
-    // 兼容性测试
-    test: function(){
-        console.log('canIuse');
-        wx.canIUse()
     }
 })
