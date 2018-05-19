@@ -1,7 +1,8 @@
 /**
  * 小程序配置文件
  */ 
-// var host = "http://192.16.8.40:8081"
+// var host = "https://cms.orenda.com.cn"
+var host = "http://192.16.8.40:8081"
 
 
 var config = {
@@ -43,7 +44,10 @@ var config = {
     getLoginListUrl: `${host}/app/common?act=get_bind_user_list`,
 
     // 账户切换的登录接口
-    getAccountListUrl: `${host}/app/common?act=change_user_login`
+    getAccountListUrl: `${host}/app/common?act=change_user_login`,
+
+    // 检测本地缓存的sessionId是否过期的接口
+    checkSessionIdUrl: `${host}/app/common?act=check_session_id`,
 
 };
 

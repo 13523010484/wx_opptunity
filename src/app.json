@@ -6,7 +6,8 @@
         "page/component/opptunity/opptunity",
         "page/component/opptunityDetail/opptunityDetail",
         "page/component/my/my",
-        "page/component/loginList/loginList"
+        "page/component/loginList/loginList",
+        "page/getUserInfo/getUserInfo"
     ],
     "window": {
         "navigationBarTextStyle": "black",

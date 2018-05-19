@@ -11,8 +11,8 @@ Page({
             title: '加载中...',
         })
         var that = this;
-        var userInfo = wx.getStorageSync('userInfo')
-        var cur_user_id = wx.getStorageSync('curUserId')
+        var userInfo = wx.getStorageSync('userInfo');
+        var cur_user_id = wx.getStorageSync('userName').user_id;
         that.setData({
             userInfo: userInfo,
             cur_user_id: cur_user_id
@@ -45,20 +45,18 @@ Page({
                 var wx_code = res.code;
                 if (res.code) {
                     app.request(app.api.getAccountListUrl, { wx_code: wx_code, user_id: e.currentTarget.id }, function (res) {
-                        var curUser = res.data
-
-                        if (curUser.session_id && curUser.session_id != '') {
-                            var sessionId = curUser.session_id;
-                            var loginInfo = curUser
-                            wx.setStorageSync('sessionId', sessionId);
-                            wx.setStorageSync('loginInfo', loginInfo);
-                            wx.setStorageSync('curUserId', curUser.user_id);
-                            that.setData({
-                                cur_user_id: curUser.user_id
-                            })
-                            wx.switchTab({
-                                url: '/page/component/index/index',
-                            })
+                        if (res.code == 200) {
+                            console.log('客户列表：');
+                            if (res.data.session_id && res.data.session_id != '') {
+                                wx.setStorageSync('sessionId', res.data.session_id);
+                                wx.setStorageSync('userName', res.data);
+                                that.setData({
+                                    cur_user_id: res.data.user_id
+                                })
+                                wx.switchTab({
+                                    url: '/page/component/index/index',
+                                })
+                            }
                         }
                     })
                 }
@@ -68,7 +66,6 @@ Page({
 
     // 添加绑定新账号
     jumpLoginPage: function () {
-        console.log(this);
         wx.navigateTo({
             url: '/page/component/login/login',
         })

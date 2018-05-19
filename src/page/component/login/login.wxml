@@ -5,7 +5,7 @@
             <input bindinput="bindKeyInput" type='text' placeholder-style='color:#dadada;' placeholder='请输入用户名' />
         </view>
         <view class='password'>
-            <text> 密 码</text>
+            <text>密<text style='color:#fff;'>密</text>码</text>
             <input bindinput="bindPassword" type='password' placeholder-style='color:#dadada;' placeholder='请输入密码' />
         </view>
     </view>

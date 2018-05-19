@@ -1,0 +1,87 @@
+/* page/getUserInfo/getUserInfo.wxss */
+
+.page {
+    padding: 0 45rpx;
+}
+
+.page_logo {
+    padding-bottom: 55rpx;
+    border-bottom: 1rpx #eee solid;
+}
+
+.page_logo view:first-child {
+    margin: 114rpx auto 0;
+    width: 150rpx;
+    height: 150rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20rpx;
+    background-color: #4a90e2;
+}
+
+.page_logo view:first-child image {
+    width: 81rpx;
+    display: block;
+}
+
+.page_logo view:last-child {
+    margin: 38rpx auto 0;
+    text-align: center;
+    width: 330rpx;
+    font-size: 36rpx;
+    color: #333;
+}
+
+.page_tip {
+    font-size: 30rpx;
+    margin-top: 54rpx;
+    color: #333;
+}
+
+.page_tip-info {
+    font-size: 24rpx;
+    margin-top: 24rpx;
+    color: #999;
+    margin-left: 15rpx;
+    padding-left: 15rpx;
+    position: relative;
+}
+
+.page_tip-info::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    display: block;
+    width: 2rpx;
+    height: 2rpx;
+    background-color: #999;
+}
+
+.page_btn-wrap {
+    margin-top: 90rpx;
+    display: flex;
+}
+
+.page_btn-wrap button {
+    flex: 1;
+    color: #fff;
+    font-size: 32rpx;
+    text-align: center;
+    height: 90rpx;
+    line-height: 90rpx;
+}
+
+.page_btn-wrap button:first-child {
+    background-color: #ccc;
+    margin-right: 20rpx;
+}
+
+.page_btn-wrap button:last-child {
+    background-color: #4a90e2;
+}
+.canIUse{
+    text-align: center;
+    margin-top: 50rpx;
+}

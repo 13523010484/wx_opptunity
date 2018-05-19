@@ -1,7 +1,7 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -90,6 +90,12 @@
 					"id": -1,
 					"name": "账号管理",
 					"pathName": "page/component/loginList/loginList",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "允许授权",
+					"pathName": "page/getUserInfo/getUserInfo",
 					"query": ""
 				}
 			]

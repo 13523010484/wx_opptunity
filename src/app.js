@@ -1,11 +1,11 @@
 const api = require('./config.js');
 
 App({
+    api: api,
     globalData: {
     },
-    api: api,
     onLaunch: function () {
-
+        // 检测版本，当小程序发布新版本时，检测并自动更新
         if (wx.getUpdateManager) {
             const updateManager = wx.getUpdateManager();
             updateManager.onCheckForUpdate(function (res) {
@@ -34,46 +34,67 @@ App({
             })
         }
 
-        var self = this, sessionId = wx.getStorageSync('sessionId');
-        wx.login({
-            success: function (res) {
-                var wx_code = res.code;
-                if (wx_code) {
-                    wx.request({
-                        url: self.api.unionIdUrl,
-                        data: { wx_code: wx_code },
-                        method: 'POST',
-                        header: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                        success: function (res) {
-                            if (res.data.code == 1 && res.data.data.session_id && res.data.data.session_id != '') {
-                                var sessionId = '';
-                                sessionId = res.data.data.session_id;
-                                var loginInfo = res.data.data;
-                                wx.setStorageSync('sessionId', sessionId);
-                                wx.setStorageSync('loginInfo', loginInfo);
-                                wx.switchTab({
-                                    url: '/page/component/index/index',
-                                })
-                            } else {
-                                wx.redirectTo({
-                                    url: '/page/component/login/login',
-                                })
-                            }
-                        },
-                        fail: function (res) {
-                            wx.showModal({
-                                title: '提示',
-                                content: '登录失败！删除本地小程序，重新搜索此小程序再次打开'+res.errMsg,
-                                showCancel: false
-                            })
-                        }
+        var self = this, sessionId = wx.getStorageSync('sessionId');// 获取缓存中的sessionId;
+        /**
+         *  检测的接口 act=wx_code_login：调用wx.login获取wx_code传递给后台，后台检测用户是否已经绑定，
+         *  code=601: 用户尚未绑定，跳转到用户授权的页面，用户点击授权，获取到用户的unionID，跳转到输入用户名密码的
+         *  页面将账户信息和unionID进行绑定。
+         *  code=200: 用户已经绑定成功的状态码，如果用户绑定
+         *  code=603: sessionId过期，wx.login重新发送wx_code
+         * 
+         * **/
+        if (sessionId) {
+            self.request(self.api.checkSessionIdUrl, { session_id: sessionId }, function (res) {
+                console.log('检测sessionId是否过期：');
+                console.log(res);
+                if (res.code == 200) {
+                    console.log('200:')
+                    // sessionId未过期，跳转到功能列表页
+                    wx.switchTab({
+                        url: '/page/component/index/index',
                     })
                 } else {
-                    console.log('登录失败！')
+                    console.log('603:');
+                    // sessionId过期，重新获取wx_code，调用检测的接口将sessionId缓存到本地
+                    self.getWxLogin(function (wx_code) {
+                        self.request(self.api.unionIdUrl, { wx_code: wx_code }, function (res) {
+                            if (res.code == 200) {
+                                // 登录成功，缓存有效的sessionId到本地
+                                wx.setStorageSync('sessionId', res.data.session_id);
+                                wx.setStorageSync('userName', res.data);
+                                wx.switchTab({
+                                    url: '/page/component/index/index',// 跳转到功能列表页
+                                })
+                            }
+                        })
+                    })
                 }
-            }
-        });
+            })
+        } else {
+            self.getWxLogin(function (wx_code) {
+                self.request(self.api.unionIdUrl, { wx_code: wx_code }, function (res) {
+                    // code=601 账号未绑定，跳转到登录页面，输入用户名密码进行账号绑定
+                    if (res.code == 601) {
+                        wx.redirectTo({
+                            url: '/page/getUserInfo/getUserInfo',
+                        })
+                    } else {
+                        // code=200 账号已经绑定成功，跳转到功能列表页
+                        console.log('用户清空了缓存：');
+                        // code=200，但是用户清空了本地缓存，此时缓存sessionId到本地，并跳转到功能列表页
+                        wx.setStorageSync('sessionId', res.data.session_id);
+                        wx.setStorageSync('userName', res.data);
+                        wx.switchTab({
+                            url: '/page/component/index/index',
+                        })
+                    }
+                })
+            })
+        }
+
     },
+
+    // 封装网络请求的接口
     request(url, param, callback, method, header) {
         wx.request({
             url: url,
@@ -82,7 +103,8 @@ App({
             dataType: 'json',
             header: header || { 'Content-Type': 'application/x-www-form-urlencoded' },
             success: function (ret) {
-                var data = ret.data.hasErrors == true ? { code: 400, msg: ret.data.message } : { code: 200, data: ret.data.data };
+                // 重新定义状态码 hasError=false的状态码有200和603。hasError=true的状态码有8001、8002、8003
+                var data = ret.data.hasErrors == true ? { code: ret.data.code, msg: ret.data.message } : { code: ret.data.code, data: ret.data.data };
                 return typeof callback == "function" && callback(data)
             },
             fail: function () {
@@ -90,5 +112,24 @@ App({
                 return typeof callback == "function" && callback(data)
             }
         })
+    },
+
+    // getWxLogin：封装获取使用wx.login获取wx_code的方法
+    getWxLogin: function (callback) {
+        var self = this
+        wx.login({
+            success: function (res) {
+                if (res.code) {
+                    callback(res.code)
+                } else {
+                    console.log('获取用户登录态失败！' + res.errMsg)
+                }
+            },
+            fail: function (err) {
+                console.log('wx.login 接口调用失败，将无法正常使用开放接口等服务', err)
+                callback(err)
+            }
+        })
     }
+
 })

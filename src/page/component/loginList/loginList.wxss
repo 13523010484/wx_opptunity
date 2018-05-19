@@ -35,6 +35,7 @@ page {
     width: 90rpx;
     height: 90rpx;
     border-radius: 50%;
+    background: #eee;
 }
 
 .account-info {

@@ -1,0 +1,15 @@
+<!--page/getUserInfo/getUserInfo.wxml-->
+<view class='page'>
+    <view class='page_logo'>
+        <view>
+            <image mode='widthFix' src='/images/icon_logo.png' />
+        </view>
+        <view>奥伦达部落营销机会 数据信息服务</view>
+    </view>
+    <view class='page_tip'>该程序将获取以下授权:</view>
+    <view class='page_tip-info'>为了给您提供更快捷的账号绑定服务，请允许获得您的用户信息！</view>
+    <view class='page_btn-wrap' wx:if="{{canIUse}}">
+        <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
+    </view>
+    <view class='canIUse' wx:if="{{!canIUse}}">请升级微信版本!</view>
+</view>

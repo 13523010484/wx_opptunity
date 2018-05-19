@@ -1,15 +1,6 @@
 var app = getApp()
-
-const checkMobileUrl = app.api.checkMobileUrl;// 检测收手机号
-const getAgeLayerUrl = app.api.getAgeLayerUrl;// 获取年龄层
-const getGroupUserUrl = app.api.getGroupUserUrl;// 获取联合销售员列表
-const getKnowWaysUrl = app.api.getKnowWaysUrl;// 获取认知途径
-const uploadUrl = app.api.uploadUrl;// 上传数据
-
 var util = require('../../../util/util');// 引入工具类，格式化时间
-
 var knowsData = [];
-
 
 Page({
     data: {
@@ -56,7 +47,7 @@ Page({
 
     // 页面加载时
     onLoad: function () {
-        var user_name = wx.getStorageSync('loginInfo').user_name;
+        var user_name = wx.getStorageSync('userName').user_name;
         var sessionId = wx.getStorageSync('sessionId');
         var guid = new Date().getTime() + Math.random();
 
@@ -111,7 +102,7 @@ Page({
             groupUsersIdStr: groupUsersIdArr[0]
         })
     },
-    bindInputNum: function(e){
+    bindInputNum: function (e) {
         this.setData({
             phone: e.detail.value
         })
@@ -149,7 +140,7 @@ Page({
                 vt: that.data.vt,
                 phone: that.data.phone
             }
-            app.request(checkMobileUrl, params, function (res) {
+            app.request(app.api.checkMobileUrl, params, function (res) {
                 if (res.code == 200 && !res.data.hasProtected) {
                     var checkMobData = res.data ? res.data : '';
                     var inputName = checkMobData.name ? checkMobData.name : '';
@@ -159,7 +150,7 @@ Page({
                     var sellViewData = checkMobData.sale_type_d9d_name ? checkMobData.sale_type_d9d_name : '';
                     var cardId = checkMobData.sale_type_d9d ? checkMobData.sale_type_d9d : '';
                     var knowsViewData = checkMobData.cognitive_approach_name ? checkMobData.cognitive_approach_name : '';
-                    var knowsViewData2 = checkMobData.cognitive_approach_pid_name ? checkMobData.cognitive_approach_pid_name : '';
+                    var knowsViewData2 = checkMobData.cognitive_approach_options_name ? checkMobData.cognitive_approach_options_name : '';
                     var cognitive_approach_id = checkMobData.cognitive_approach_id ? checkMobData.cognitive_approach_id : '';
                     var cognitive_approach_options_value = checkMobData.cognitive_approach_options_value ? checkMobData.cognitive_approach_options_value : '';
                     // 更新页面层数据
@@ -242,7 +233,7 @@ Page({
     // 获取联合销售员列表的数据请求
     getGroupUserList() {
         var that = this;
-        app.request(getGroupUserUrl, { session_id: that.data.sessionId }, function (res) {
+        app.request(app.api.getGroupUserUrl, { session_id: that.data.sessionId }, function (res) {
             var groupUsers = res.data;
             if (res.code == 200) {
                 that.setData({
@@ -259,7 +250,7 @@ Page({
             };
 
         // 获取年龄层的接口
-        app.request(getAgeLayerUrl, params, function (res) {
+        app.request(app.api.getAgeLayerUrl, params, function (res) {
             callback(res)
         }, '', 'application/json')
     },
@@ -307,7 +298,7 @@ Page({
     // picker knows  获取认知途径的数据请求
     getKnows() {
         var that = this;
-        app.request(getKnowWaysUrl, '', function (res) {
+        app.request(app.api.getKnowWaysUrl, '', function (res) {
             knowsData = res.data
             var knowsFirstArr = [], knowsIndex = that.data.knowsIndex;
 
@@ -371,7 +362,7 @@ Page({
         console.log(obj);
 
         if (obj.mobile && obj.customer_name && obj.content && this.data.ageId && this.data.cardId && this.data.cognitive_approach_id && this.data.cognitive_approach_options_value) {
-            app.request(uploadUrl, params, function (res) {
+            app.request(app.api.uploadUrl, params, function (res) {
                 if (res.code == 200) {
                     wx.hideLoading();
                     if (res.data[0].isOk == true) {
@@ -382,7 +373,7 @@ Page({
                     } else if (res.data[0].isOk == false) {
                         console.log('保存失败！');
                         wx.showToast({
-                            title: '上传失败，'+res.data[0].result,
+                            title: '上传失败，' + res.data[0].result,
                             icon: 'none',
                             duration: 4000
                         })

@@ -15,16 +15,14 @@
     color: #333;
     border-bottom: 1rpx #dadada solid;
 }
-.username>input, .password>input{
+
+.username>input, .password>input {
     height: 100%;
+    padding-left: 24rpx;
 }
 
-.username {
-    margin-bottom: 40rpx;
-}
-
-.username>text:first-child, .password>text:first-child {
-    width: 140rpx;
+.password {
+    margin-top: 40rpx;
 }
 
 .page_btn>button {
