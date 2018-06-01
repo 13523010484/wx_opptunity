@@ -17,9 +17,10 @@ function get_data(that) {
                 lodeMore: false,
                 hasLoading: true,
                 total: res.data.total,
-                list: res.data.list.concat($this.data.list)
+                list: $this.data.list.concat(res.data.list)
             })
         }
+        console.log(reqList);
         wx.hideLoading()
     })
 }
@@ -33,22 +34,16 @@ Page({
         hasLoading: false,
         lodeMore: false
     },
+
+    // 页面onLoad
     onLoad: function () {
         wx.showLoading({
             title: '加载中...',
         })
         get_data(this);
     },
-    onReachBottom: function (e) {
-        let page = this.data.page + 1;
-        if (reqList.length > 0) {
-            this.setData({
-                page: page,
-                lodeMore: this.data.list.length > 0 ? true : false
-            });
-            get_data(this);
-        }
-    },
+
+    // tab切换时更新数据
     changeTag: function (vt) {
         wx.showLoading({
             title: '切换中...',
@@ -62,5 +57,18 @@ Page({
             vt: vt.target.id
         });
         get_data(this);
+    },
+    
+    // 滑动到底部时，分页加载更多数据
+    onReachBottom: function (e) {
+        let page = this.data.page + 1;
+        if (reqList.length > 0) {
+            this.setData({
+                page: page,
+                lodeMore: this.data.list.length > 0 ? true : false
+            });
+            get_data(this);
+        }
     }
+
 })

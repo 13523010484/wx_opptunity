@@ -4,9 +4,16 @@ Page({
     data: {
         data: '',
         other_mobiles: '',
-        list: []
+        list: [],
+        show: false,// 默认状态下不显示底部按钮
     },
+
     onLoad: function (options) {
+        if (getCurrentPages()[1].route == "page/component/opptunity/opptunity"){
+            this.setData({
+                show: true// 列表页面进入详情的，详情页面显示底部按钮，否则的话隐藏底部按钮
+            })
+        }
         wx.showLoading({
             title: '加载中...',
         })

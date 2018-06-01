@@ -1,11 +1,11 @@
 <view class='page'>
     <view class='page_input'>
         <view class='username'>
-            <text>用户名</text>
+            <text style='width:150rpx;text-align:right;'>用户名</text>
             <input bindinput="bindKeyInput" type='text' placeholder-style='color:#dadada;' placeholder='请输入用户名' />
         </view>
         <view class='password'>
-            <text>密<text style='color:#fff;'>密</text>码</text>
+            <text style='width:150rpx;text-align:right;'>密码</text>
             <input bindinput="bindPassword" type='password' placeholder-style='color:#dadada;' placeholder='请输入密码' />
         </view>
     </view>

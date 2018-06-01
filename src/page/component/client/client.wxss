@@ -1,6 +1,6 @@
 @import '/page/common/common.wxss';
 
-page{
+page {
     background-color: #f5f5f5;
 }
 
@@ -149,7 +149,8 @@ checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
     height: 90rpx;
     line-height: 90rpx;
 }
-.page-part_content.note{
+
+.page-part_content.note {
     background-color: #fff;
     margin-bottom: 40rpx;
 }
@@ -175,6 +176,11 @@ picker .picker, .current-day {
 picker .disabled-color {
     color: rgba(0, 0, 0, 0.3);
 }
-.border-none>view:last-child{
+
+.border-none>view:last-child {
     border-bottom: none;
+}
+
+.need_options>view:last-child input {
+    text-align: right;
 }

@@ -40,9 +40,10 @@ Page({
         knowsFirstId: '',// 页面显示的认知途径第一列的ID
         knowsViewData2: '',// 页面显示的认知渠道第二列的数据
         knowsSecondId: '',// 页面显示的认知途径的第二列的ID
+        cognitive_approach_type_id: '',
         cognitive_approach_id: '',
-        cognitive_approach_options_value: '',
         currentDay: util.transDate(new Date()),// 显示当天访问的时间
+        need_options_data: '',// 第二列的数据，为了控制是否显示标签值：卡名、卡号
     },
 
     // 页面加载时
@@ -102,6 +103,7 @@ Page({
             groupUsersIdStr: groupUsersIdArr[0]
         })
     },
+
     bindInputNum: function (e) {
         this.setData({
             phone: e.detail.value
@@ -145,27 +147,29 @@ Page({
                     var checkMobData = res.data ? res.data : '';
                     var inputName = checkMobData.name ? checkMobData.name : '';
                     var gender = checkMobData.gender ? 0 : 1;
+                    var vt = checkMobData.vt ? 'V' : 'P';
                     var ageViewData = checkMobData.age_composition_name ? checkMobData.age_composition_name : '';
                     var ageId = checkMobData.age_composition_id ? checkMobData.age_composition_id : '';
                     var sellViewData = checkMobData.sale_type_d9d_name ? checkMobData.sale_type_d9d_name : '';
                     var cardId = checkMobData.sale_type_d9d ? checkMobData.sale_type_d9d : '';
-                    var knowsViewData = checkMobData.cognitive_approach_name ? checkMobData.cognitive_approach_name : '';
-                    var knowsViewData2 = checkMobData.cognitive_approach_options_name ? checkMobData.cognitive_approach_options_name : '';
+                    var knowsViewData = checkMobData.cognitive_approach_pid_name ? checkMobData.cognitive_approach_pid_name : '';
+                    var knowsViewData2 = checkMobData.cognitive_approach_name ? checkMobData.cognitive_approach_name : '';
+                    var cognitive_approach_type_id = checkMobData.cognitive_approach_type_id ? checkMobData.cognitive_approach_type_id : '';
                     var cognitive_approach_id = checkMobData.cognitive_approach_id ? checkMobData.cognitive_approach_id : '';
-                    var cognitive_approach_options_value = checkMobData.cognitive_approach_options_value ? checkMobData.cognitive_approach_options_value : '';
                     // 更新页面层数据
                     that.setData({
                         checkMobData: checkMobData,// 点击检测返回的数据
                         inputName: inputName,// 姓名
                         gender: gender,// 性别
+                        vt: vt,// 来电来访
                         ageViewData: ageViewData,// 年龄层
                         sellViewData: sellViewData,// 营销类型
                         knowsViewData: knowsViewData,// 认知途径
                         knowsViewData2: knowsViewData2,// 认知途径第二列
                         ageId: ageId,// 年龄层ID
                         cardId: cardId,// 营销类型卡ID
-                        cognitive_approach_id: cognitive_approach_id,// 认知渠道第一列ID
-                        cognitive_approach_options_value: cognitive_approach_options_value,// 认知渠道第二列ID
+                        cognitive_approach_type_id: cognitive_approach_type_id,// 认知渠道第一列ID
+                        cognitive_approach_id: cognitive_approach_id,// 认知渠道第二列ID
                         hiddenStatus: false// 手机号保护期外的客户可以编辑的信息列表
                     })
                     console.log(gender);
@@ -209,25 +213,33 @@ Page({
         knowsData[knowsIndex].items.forEach(function (item, index) {
             knowsSecondArr.push(item.name);
         })
-        var cognitive_approach_id = knowsData[knowsIndex].ca_id;
+        var cognitive_approach_type_id = knowsData[knowsIndex].ca_id;
         this.setData({
             knowsIndex: knowsIndex,
-            cognitive_approach_id: cognitive_approach_id,
+            cognitive_approach_type_id: cognitive_approach_type_id,
             knowsViewData: this.data.knowsFirstArr[knowsIndex],
             knowsSecondArr: knowsSecondArr,
-            disabled: false
+            disabled: false,
+            knowsViewData2: ''
         })
     },
 
     // 认知途径地点信息索引
     bindPickerPlace: function (e) {
-        var placeIndex = e.detail.value;
-        var cognitive_approach_options_value = knowsData[this.data.knowsIndex].items[placeIndex].value;
+        // var placeIndex = e.detail.value;
+        // var cognitive_approach_id = knowsData[this.data.knowsIndex].items[placeIndex].value;
+        var need_options_data = knowsData[this.data.knowsIndex].items[e.detail.value];// 180530 新增：标签值是否显示
+       
         this.setData({
-            placeIndex: placeIndex,
-            cognitive_approach_options_value: cognitive_approach_options_value,
-            knowsViewData2: this.data.knowsSecondArr[placeIndex]
+            placeIndex: e.detail.value,
+            // cognitive_approach_id: cognitive_approach_id,
+            cognitive_approach_id: need_options_data.value,
+            knowsViewData2: this.data.knowsSecondArr[e.detail.value],
+            need_options_data: need_options_data// 180530 新增：标签值是否显示
         })
+
+        console.log('后台返回的选择地点的第二列的值：');
+        console.log(this.data.need_options_data);
     },
 
     // 获取联合销售员列表的数据请求
@@ -240,7 +252,7 @@ Page({
                     groupUsers: groupUsers
                 })
             }
-        }, '', 'application/json')
+        }, '', { 'Content-Type':'application/json'})
     },
     selectAge(dict_id, callback) {
         var that = this,
@@ -252,7 +264,7 @@ Page({
         // 获取年龄层的接口
         app.request(app.api.getAgeLayerUrl, params, function (res) {
             callback(res)
-        }, '', 'application/json')
+        }, '', { 'Content-Type': 'application/json' })
     },
 
     // picker  age  获取年龄层的数据请求
@@ -312,7 +324,7 @@ Page({
             })
 
 
-        }, '', 'application/json')
+        }, '', { 'Content-Type': 'application/json' })
     },
 
     // textareaContent 获取内容输入框的数据
@@ -331,23 +343,26 @@ Page({
 
     // 点击按钮 提交表单数据
     formSubmit: function (e) {
+        console.log(e);
         wx.showLoading({
             title: '上传中...',
         })
 
         var obj = {
-            customer_name: this.data.inputName ? this.data.inputName : e.detail.value.inputName,
+            customer_name: this.data.inputName ? e.detail.value.inputName : this.data.inputName,
             mobile: this.data.phone,
-            vt: this.data.vt ? this.data.vt : e.detail.value.vt,
-            gender: this.data.gender ? this.data.gender : e.detail.value.gender,
+            vt: this.data.vt ? e.detail.value.vt : this.data.vt,
+            gender: this.data.gender ? e.detail.value.gender : this.data.gender,
             content: this.data.content ? this.data.content : e.detail.value.content,
             note: this.data.note ? this.data.note : e.detail.value.note,
             visit_time: this.data.currentDay,
             age_composition_id: this.data.ageId,
+            cognitive_approach_type_id: this.data.cognitive_approach_type_id,
             cognitive_approach_id: this.data.cognitive_approach_id,
-            cognitive_approach_options_value: this.data.cognitive_approach_options_value,
             sale_type_d9d: this.data.cardId,
             union_sale_user_ids: this.data.groupUsersIdStr.join(),
+            cognitive_approach_label_name: this.data.need_options_data.options_label_name,
+            cognitive_approach_options_value: e.detail.value.cognitive_approach_label_value,
             guid: this.data.guid
         };
 
@@ -360,8 +375,10 @@ Page({
             mo_data: str
         };
         console.log(obj);
+        console.log(Boolean(obj.mobile && obj.customer_name && obj.content && this.data.ageId && this.data.cardId && this.data.cognitive_approach_type_id && this.data.cognitive_approach_id));
 
-        if (obj.mobile && obj.customer_name && obj.content && this.data.ageId && this.data.cardId && this.data.cognitive_approach_id && this.data.cognitive_approach_options_value) {
+
+        if (obj.mobile && obj.customer_name && obj.content && this.data.ageId && this.data.cardId && this.data.cognitive_approach_type_id && this.data.cognitive_approach_id) {
             app.request(app.api.uploadUrl, params, function (res) {
                 if (res.code == 200) {
                     wx.hideLoading();

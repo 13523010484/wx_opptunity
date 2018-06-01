@@ -7,7 +7,11 @@
         "page/component/opptunityDetail/opptunityDetail",
         "page/component/my/my",
         "page/component/loginList/loginList",
-        "page/getUserInfo/getUserInfo"
+        "page/getUserInfo/getUserInfo",
+        "page/component/salesDepartmentList/salesDepartmentList",
+        "page/component/sellerList/sellerList",
+        "page/component/sellerCustomerList/sellerCustomerList",
+        "page/component/clientDetect/clientDetect"
     ],
     "window": {
         "navigationBarTextStyle": "black",

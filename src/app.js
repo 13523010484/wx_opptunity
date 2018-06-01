@@ -5,36 +5,54 @@ App({
     globalData: {
     },
     onLaunch: function () {
-        // 检测版本，当小程序发布新版本时，检测并自动更新
-        if (wx.getUpdateManager) {
-            const updateManager = wx.getUpdateManager();
-            updateManager.onCheckForUpdate(function (res) {
-                // 请求完新版本信息的回调
-                console.log(res.hasUpdate)
-            })
-            updateManager.onUpdateReady(function () {
-                wx.showModal({
-                    title: '更新提示',
-                    content: '新版本已经准备好，是否重启应用？',
-                    success: function (res) {
-                        if (res.confirm) {
-                            // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
-                            updateManager.applyUpdate()
-                        }
-                    }
-                })
-            })
-            updateManager.onUpdateFailed(function () {
-                // 新的版本下载失败
-            })
-        } else {
-            wx.showModal({
-                title: '提示',
-                content: '当前微信版本过低，无法使用版本自动更新的功能，请升级到最新微信版本后重试。'
-            })
-        }
-
         var self = this, sessionId = wx.getStorageSync('sessionId');// 获取缓存中的sessionId;
+
+        // 检测版本号的接口
+        self.request(self.api.checkVersionUrl, { OS: 3, verIndex: 3 }, function (res) {
+            console.log('检测版本号返回数据：');
+            console.log(res);
+            if (res.code == 200) {
+                if (res.data.has_new) {
+                    // 获取小程序更新机制兼容
+                    if (wx.canIUse('getUpdateManager')) {
+                        const updateManager = wx.getUpdateManager()
+                        updateManager.onCheckForUpdate(function (res) {
+                            // 请求完新版本信息的回调
+                            if (res.hasUpdate) {
+                                updateManager.onUpdateReady(function () {
+                                    wx.showModal({
+                                        title: '更新提示',
+                                        content: '新版本已经准备好，是否重启应用？',
+                                        success: function (res) {
+                                            if (res.confirm) {
+                                                // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+                                                updateManager.applyUpdate()
+                                            }
+                                        }
+                                    })
+                                })
+                                updateManager.onUpdateFailed(function () {
+                                    // 新的版本下载失败
+                                    wx.showModal({
+                                        title: '已经有新版本了哟~',
+                                        content: '新版本已经上线啦~，请您删除当前小程序，重新搜索打开哟~',
+                                    })
+                                })
+                            }
+                        })
+                    } else {
+                        // 如果希望用户在最新版本的客户端上体验您的小程序，可以这样子提示
+                        wx.showModal({
+                            title: '提示',
+                            content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
+                        })
+                    }
+                }
+            }
+
+        })
+
+
         /**
          *  检测的接口 act=wx_code_login：调用wx.login获取wx_code传递给后台，后台检测用户是否已经绑定，
          *  code=601: 用户尚未绑定，跳转到用户授权的页面，用户点击授权，获取到用户的unionID，跳转到输入用户名密码的
@@ -96,12 +114,20 @@ App({
 
     // 封装网络请求的接口
     request(url, param, callback, method, header) {
+        if (header) {
+            header["X-Requested-With"] = "XMLHttpRequest";
+        } else {
+            header = {
+                'Content-Type': 'application/x-www-form-urlencoded'
+                , 'X-Requested-With': 'XMLHttpRequest'
+            };
+        }
         wx.request({
             url: url,
             data: param,
             method: method || 'GET',
             dataType: 'json',
-            header: header || { 'Content-Type': 'application/x-www-form-urlencoded' },
+            header: header,
             success: function (ret) {
                 // 重新定义状态码 hasError=false的状态码有200和603。hasError=true的状态码有8001、8002、8003
                 var data = ret.data.hasErrors == true ? { code: ret.data.code, msg: ret.data.message } : { code: ret.data.code, data: ret.data.data };

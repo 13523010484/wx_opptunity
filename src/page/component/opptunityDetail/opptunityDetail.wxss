@@ -4,6 +4,10 @@ page {
     background-color: #f5f5f5;
 }
 
+.page_content {
+    padding-bottom: 120rpx;
+}
+
 .item>view:first-child {
     color: #333;
     font-size: 30rpx;
@@ -56,4 +60,32 @@ page {
 
 .visit-record>view>text {
     margin-right: 15rpx;
+}
+
+.content {
+    min-height: 150rpx;
+    font-size: 30rpx;
+    color: #333;
+    padding: 24rpx;
+    background-color: #fff;
+    border-bottom: 1rpx #eee solid;
+}
+
+.content>view:last-child {
+    margin-top: 24rpx;
+    color: #999;
+}
+
+.page_btn {
+    height: 90rpx;
+    line-height: 90rpx;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: #000;
+    color: #fff;
+    width: 100%;
+    font-size: 28rpx;
+    text-align: center;
+    opacity: 0.5;
 }

@@ -67,7 +67,7 @@ Page({
     // 添加绑定新账号
     jumpLoginPage: function () {
         wx.navigateTo({
-            url: '/page/component/login/login',
+            url: '/page/getUserInfo/getUserInfo',
         })
     }
 })

@@ -7,7 +7,7 @@
         </view>
         <view class="items" wx-if="{{hasLoading && list.length>0}}">
             <view wx:for="{{list}}" wx:key="{{id}}">
-                <navigator url='../opptunityDetail/opptunityDetail?id={{item.id}}' class="item">
+                <navigator url='/page/component/opptunityDetail/opptunityDetail?id={{item.id}}' class="item">
                     <view>
                         <text class='user_name'>{{item.name}}</text>
                         <text class='user_gender'>{{item.gender==0?'♀':'♂'}}</text>

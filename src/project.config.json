@@ -97,6 +97,30 @@
 					"name": "允许授权",
 					"pathName": "page/getUserInfo/getUserInfo",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "个人中心",
+					"pathName": "page/component/my/my",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "销售员列表",
+					"pathName": "page/component/sellerList/sellerList",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "销售员详情",
+					"pathName": "page/component/sellerCustomerList/sellerCustomerList",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "clientDetect",
+					"pathName": "page/component/clientDetect/clientDetect",
+					"query": ""
 				}
 			]
 		}

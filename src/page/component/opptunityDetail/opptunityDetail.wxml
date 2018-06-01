@@ -1,49 +1,63 @@
 <view class='page'>
-    <view class="item">
-        <view>姓名</view>
-        <view>{{data.name}}</view>
-    </view>
-    <view class="item">
-        <view>电话</view>
-        <view>{{data.mobile}}</view>
-    </view>
-    <view class="item other-tel">
-        <view class='title'>其他电话</view>
-        <view class='tel'>
-            <view wx:for='{{other_mobiles}}'>{{other_mobiles[index] || '无'}} </view>
+    <view class='page_content'>
+        <view class="item">
+            <view>姓名</view>
+            <view>{{data.name}}</view>
+        </view>
+        <view class="item">
+            <view>电话</view>
+            <view>{{data.mobile}}</view>
+        </view>
+        <view class="item other-tel">
+            <view class='title'>其他电话</view>
+            <view class='tel'>
+                <view wx:for='{{other_mobiles}}' wx:key='index'>{{other_mobiles[index] || '无'}} </view>
+            </view>
+        </view>
+        <view class="item">
+            <view>访问类型</view>
+            <view>{{data.customer_visit_type_d9d_name}}</view>
+        </view>
+        <view class="item">
+            <view>性别</view>
+            <view>{{data.gender?'男':'女'}}</view>
+        </view>
+        <view class="item">
+            <view>年龄层</view>
+            <view>{{data.age_composition_name}}</view>
+        </view>
+        <view class="item">
+            <view>营销类型</view>
+            <view>{{data.sale_type_d9d_name}}</view>
+        </view>
+        <view class="item">
+            <view>认知途径</view>
+            <view>{{data.cognitive_approach_pid_name}} -- {{data.cognitive_approach_name}}</view>
+        </view>
+        <view class="item" wx:if='{{data.cognitive_approach_label_name!=null&&data.cognitive_approach_label_value!=""}}'>
+            <view>{{data.cognitive_approach_label_name}}</view>
+            <view>{{data.cognitive_approach_options_value}}</view>
+        </view>
+        <view class="item">
+            <view>访问日期</view>
+            <view>{{data.visit_date}}</view>
+        </view>
+        <view class='content'>
+            <view>内容:</view>
+            <view>{{data.content}}</view>
+        </view>
+        <view class='content' wx:if='{{data.note != ""}}'>
+            <view>备注:</view>
+            <view>{{data.note}}</view>
+        </view>
+        <view class='visit-record'>
+            <view wx:for='{{list}}' wx:key='index'>
+                <text>{{item.added_time}}</text>
+                <text>{{item.return_user_name}}</text>
+                <text>{{item.visit_type}}</text>
+                <view>内容：{{item.content}}</view>
+            </view>
         </view>
     </view>
-    <view class="item">
-        <view>访问类型</view>
-        <view>{{data.customer_visit_type_d9d_name}}</view>
-    </view>
-    <view class="item">
-        <view>性别</view>
-        <view>{{data.gender?'男':'女'}}</view>
-    </view>
-    <view class="item">
-        <view>年龄层</view>
-        <view>{{data.age_composition_name}}</view>
-    </view>
-    <view class="item">
-        <view>营销类型</view>
-        <view>{{data.sale_type_d9d_name}}</view>
-    </view>
-    <view class="item">
-        <view>认知途径</view>
-        <view>{{data.cognitive_approach_name}}</view>
-    </view>
-    <view class="item">
-        <view>访问日期</view>
-        <view>{{data.visit_date}}</view>
-    </view>
-    <view class='visit-record'>
-        <view wx:for='{{list}}'>
-            <text>{{item.added_time}}</text>
-            <text>{{item.return_user_name}}</text>
-            <text>{{item.visit_type}}</text>
-            <!-- 待确定：  -->
-             <view>内容：{{item.content}}</view>  
-        </view>
-    </view>
+    <view class='page_btn' wx:if='{{show}}'>追电到访记录</view>
 </view>

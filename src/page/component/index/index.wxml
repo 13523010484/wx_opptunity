@@ -1,4 +1,6 @@
 <view class='page'>
-    <view bindtap="client">登记客户</view>
-    <view bindtap="opptunity">我的营销机会</view>
+    <navigator url='/page/component/client/client'>登记客户</navigator>
+    <navigator url='/page/component/opptunity/opptunity'>我的营销机会</navigator>
+    <navigator url='/page/component/salesDepartmentList/salesDepartmentList'>营销机会管理</navigator>
+    <navigator url='/page/component/clientDetect/clientDetect'>客户重复检测</navigator>
 </view>

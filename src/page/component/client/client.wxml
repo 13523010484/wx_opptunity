@@ -81,20 +81,30 @@
                 </view>
             </picker>
 
-            <!-- 认知途径  -->
+            <!-- 认知渠道类别  -->
             <picker bindchange="bindPickerKnows" value="{{knowsIndex}}" range="{{knowsFirstArr}}">
                 <view class='item'>
                     <view>认知渠道类别</view>
                     <view class="picker">{{knowsViewData}}</view>
                 </view>
             </picker>
-            <!-- 认知途径  -->
+            <!-- 认知渠道 -->
             <picker disabled='{{disabled}}' bindchange="bindPickerPlace" value="{{placeIndex}}" range="{{knowsSecondArr}}">
                 <view class='item'>
                     <view>认知渠道</view>
-                    <view class='picker {{disabled == true?"disabled-color":""}}'>{{knowsViewData2||'请先选择认知渠道类别'}}</view>
+                    <view class='picker {{disabled == true?"disabled-color":""}}'>{{knowsViewData2}}</view>
+                    <!-- <view class='picker {{disabled == true?"disabled-color":""}}'>{{knowsViewData2||'请先选择认知渠道类别'}}</view> -->
                 </view>
             </picker>
+
+            <!-- 是否显示标签  -->
+            <view class='item need_options' wx:if='{{need_options_data.need_options}}'>
+                <view>{{need_options_data.options_label_name}}</view>
+                <view>
+                    <input type='text' name='cognitive_approach_label_value' placeholder='请输入...' />
+                </view>
+            </view>
+
             <!-- 访问日期  -->
             <view class='item'>
                 <view>访问日期</view>
