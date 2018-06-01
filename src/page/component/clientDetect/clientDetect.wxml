@@ -1,0 +1,18 @@
+<view class='page'>
+    <view class='title'>检测客户手机号是否重复：</view>
+    <view class='page_input'>
+        <view>前三位：</view>
+        <input type='number' bindinput='inputThree' maxlength='3' />
+        <view>尾号：</view>
+        <input type='number' bindinput='inputFour' maxlength='8' />
+        <view class='input_btn' bindtap='checkMobile'>检测</view>
+    </view>
+    <view class='icon_warn' wx:if='{{show_status && (results_code == 601)}}'>
+        <icon type='warn' size='20' />
+        <text>客户重复！！</text>
+    </view>
+     <view class='icon_success' wx:if='{{show_status && (results_code == 200)}}'>
+        <icon type='success' size='20' />
+        <text>客户不重复。</text>
+    </view>
+</view>

@@ -1,0 +1,10 @@
+<view class='page'>
+    <navigator wx:for='{{results_list}}' wx:key='index' url='/page/component/sellerList/sellerList?org_id={{item.org_id}}' class='item'>
+        <view>{{item.name}}</view>
+        <view>{{item.num}}人</view>
+    </navigator>
+
+    <view class="empty" wx:if='{{hasLoading && total == 0}}'> 暂无数据哦～</view>
+    <view class="empty" wx:if='{{(results_list.length == total) && (total>0)}}'> 没有更多数据了哦～</view>
+    <view class="load_more" wx:if='{{(results_list.length<total) && (loadMore==true) && (total>0)}}'>加载更多...</view>
+</view>
