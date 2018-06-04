@@ -1,11 +1,11 @@
 {
     "pages": [
         "page/component/index/index",
+        "page/component/my/my",
         "page/component/client/client",
         "page/component/login/login",
         "page/component/opptunity/opptunity",
         "page/component/opptunityDetail/opptunityDetail",
-        "page/component/my/my",
         "page/component/loginList/loginList",
         "page/getUserInfo/getUserInfo",
         "page/component/salesDepartmentList/salesDepartmentList",

@@ -6,6 +6,15 @@ Page({
         user_name: ''
     },
 
+    onLoad: function () {
+        var session_id = wx.getStorageSync('sessionId');
+        if (!session_id) {
+            wx.redirectTo({
+                url: '/page/getUserInfo/getUserInfo',
+            })
+        }
+    },
+
     // 页面显示的时候
     onShow: function () {
         var that = this;

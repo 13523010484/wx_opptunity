@@ -8,8 +8,13 @@ Page({
         show_status: false,// 显示状态，默认隐藏
     },
 
-    onLoad: function (options) {
-
+    onLoad: function () {
+        var session_id = wx.getStorageSync('sessionId');
+        if (!session_id) {
+            wx.redirectTo({
+                url: '/page/getUserInfo/getUserInfo',
+            })
+        }
     },
 
     // inputThree 获取用户输入的前三位手机号的值

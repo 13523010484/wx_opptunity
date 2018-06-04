@@ -4,6 +4,5 @@ Page({
     data: {
     },
     onLoad: function () {
-
-    },
+    }
 })

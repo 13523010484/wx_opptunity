@@ -11,7 +11,14 @@ Page({
     },
 
     onLoad: function () {
-        this.get_data();// 页面加载时候请求数据
+        var session_id = wx.getStorageSync('sessionId');
+        if (session_id) {
+            this.get_data();// 页面加载时候请求数据
+        } else {
+            wx.redirectTo({
+                url: '/page/getUserInfo/getUserInfo',
+            })
+        }
     },
 
     // 封装请求销售部列表的方法
@@ -19,7 +26,7 @@ Page({
         wx.showLoading({
             title: '加载中...',
         });
-        
+
         var that = this, session_id = wx.getStorageSync('sessionId'),
             params = {
                 page: this.data.page,

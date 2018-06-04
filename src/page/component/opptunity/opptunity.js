@@ -37,10 +37,17 @@ Page({
 
     // 页面onLoad
     onLoad: function () {
-        wx.showLoading({
-            title: '加载中...',
-        })
-        get_data(this);
+        var session_id = wx.getStorageSync('sessionId');
+        if (session_id) {
+            wx.showLoading({
+                title: '加载中...',
+            })
+            get_data(this);
+        } else {
+            wx.redirectTo({
+                url: '/page/getUserInfo/getUserInfo',
+            })
+        }
     },
 
     // tab切换时更新数据
@@ -58,7 +65,7 @@ Page({
         });
         get_data(this);
     },
-    
+
     // 滑动到底部时，分页加载更多数据
     onReachBottom: function (e) {
         let page = this.data.page + 1;

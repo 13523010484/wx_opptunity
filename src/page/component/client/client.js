@@ -48,20 +48,28 @@ Page({
 
     // 页面加载时
     onLoad: function () {
-        var user_name = wx.getStorageSync('userName').user_name;
-        var sessionId = wx.getStorageSync('sessionId');
-        var guid = new Date().getTime() + Math.random();
+        var session_id = wx.getStorageSync('sessionId');
+     
+        if (session_id) {
+            var user_name = wx.getStorageSync('userName').user_name;
+            var sessionId = wx.getStorageSync('sessionId');
+            var guid = new Date().getTime() + Math.random();
 
-        this.setData({
-            guid: guid,
-            sessionId: sessionId,
-            user_name: user_name
-        })
+            this.setData({
+                guid: guid,
+                sessionId: sessionId,
+                user_name: user_name
+            })
 
-        this.getGroupUserList();// 获取联合销售员的数据请求
-        this.getAgeLayer();// 获取年龄层的数据请求
-        this.getCard();// 获取营销类型的数据请求
-        this.getKnows();// 获取营销类型的数据请求
+            this.getGroupUserList();// 获取联合销售员的数据请求
+            this.getAgeLayer();// 获取年龄层的数据请求
+            this.getCard();// 获取营销类型的数据请求
+            this.getKnows();// 获取营销类型的数据请求
+        } else {
+            wx.redirectTo({
+                url: '/page/getUserInfo/getUserInfo',
+            })
+        }
     },
 
     // changeStatus 点击icon图标显示销售员列表
@@ -229,7 +237,7 @@ Page({
         // var placeIndex = e.detail.value;
         // var cognitive_approach_id = knowsData[this.data.knowsIndex].items[placeIndex].value;
         var need_options_data = knowsData[this.data.knowsIndex].items[e.detail.value];// 180530 新增：标签值是否显示
-       
+
         this.setData({
             placeIndex: e.detail.value,
             // cognitive_approach_id: cognitive_approach_id,
@@ -252,7 +260,7 @@ Page({
                     groupUsers: groupUsers
                 })
             }
-        }, '', { 'Content-Type':'application/json'})
+        }, '', { 'Content-Type': 'application/json' })
     },
     selectAge(dict_id, callback) {
         var that = this,
