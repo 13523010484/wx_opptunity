@@ -357,7 +357,7 @@ Page({
         })
 
         var obj = {
-            customer_name: this.data.inputName ? e.detail.value.inputName : this.data.inputName,
+            customer_name: e.detail.value.inputName,
             mobile: this.data.phone,
             vt: this.data.vt ? e.detail.value.vt : this.data.vt,
             gender: this.data.gender ? e.detail.value.gender : this.data.gender,
