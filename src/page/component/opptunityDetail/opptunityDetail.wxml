@@ -59,5 +59,20 @@
             </view>
         </view>
     </view>
-    <view class='page_btn' wx:if='{{show}}'>追电到访记录</view>
+    <view class='page_btn' wx:if='{{show}}' bindtap='showModal'>追电、来访</view>
+    <modal wx:if='{{!hidden}}' confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
+        <view class='red_info' wx:if='{{red_info}}'>请确保信息填写完整！</view>
+        <view class='visit_type'>
+            <text>访问类型(必填)：</text>
+            <radio-group bindchange="radioChange">
+                <label wx:for="{{radioArr}}" wx:key='index'>
+                    <radio color='#4a90e2' value="{{item.value}}" checked="{{item.checked}}" />{{item.name}}
+                </label>
+            </radio-group>
+        </view>
+        <view class='follow_content'>
+            <text>跟进内容(必填)：</text>
+            <textarea bindinput="bindTextAreaInput" placeholder='请输入跟进内容...' placeholder-style='color:#aaa;'></textarea>
+        </view>
+    </modal>
 </view>
