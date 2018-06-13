@@ -79,3 +79,17 @@ radio .wx-radio-input.wx-radio-input-checked::before {
     color: #4a90e2;
     background: #fff;
 }
+
+.hover-class {
+    background-color: #eee;
+    color: #999;
+}
+
+button {
+    margin: 48rpx 24rpx;
+    font-size: 32rpx;
+    background-color: #4a90e2;
+    color: #fff;
+    height: 90rpx;
+    line-height: 90rpx;
+}

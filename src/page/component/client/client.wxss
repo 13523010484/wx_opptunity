@@ -84,12 +84,8 @@ page {
     color: #4a90e2;
 }
 
-.radio-group>view {
-    width: 100%;
-}
-
-.radio-group>view>label {
-    flex: 1;
+.radio-group label {
+    width: 110rpx;
     display: block;
     text-align: center;
 }

@@ -6,37 +6,31 @@ Page({
         user_name: ''
     },
 
-    onLoad: function () {
-        var session_id = wx.getStorageSync('sessionId');
-        if (!session_id) {
-            wx.redirectTo({
-                url: '/page/getUserInfo/getUserInfo',
-            })
-        }
-    },
-
     // 页面显示的时候
     onShow: function () {
         var that = this;
         var userInfo = wx.getStorageSync('userInfo');
         var user_name = wx.getStorageSync('userName').user_name;
-        this.setData({
-            userInfo: userInfo,
-            user_name: user_name
-        })
-        console.log('缓存当中无法获取用户头像：');
-        console.log(Boolean(!wx.getStorageSync('userInfo')));
+        var session_id = wx.getStorageSync('sessionId');
+        if (session_id) {
+            this.setData({
+                userInfo: userInfo,
+                user_name: user_name
+            })
 
-        if (!wx.getStorageSync('userInfo')) {
-            wx.getUserInfo({
-                success: function (res) {
-                    console.log('res:');
-                    console.log(res);
-                    wx.setStorageSync('userInfo', res.userInfo);
-                    that.setData({
-                        userInfo: res.userInfo
-                    })
-                }
+            if (!wx.getStorageSync('userInfo')) {
+                wx.getUserInfo({
+                    success: function (res) {
+                        wx.setStorageSync('userInfo', res.userInfo);
+                        that.setData({
+                            userInfo: res.userInfo
+                        })
+                    }
+                })
+            }
+        } else {
+            wx.redirectTo({
+                url: '/page/getUserInfo/getUserInfo',
             })
         }
     },

@@ -21,8 +21,6 @@ Page({
         placeIndex: 1,// 认知途径地点信息索引下标
         phone: '',// 用户输入的手机号
         inputName: '',// 用户姓名
-        content: '',// 多行输入框内容
-        note: '',// 多行输入框备注
         hiddenStatus: true,// 点击检测时，如果手机号输入不正确或者手机号正确但此手机号在保护期，隐藏编辑客户信息的类别项
         disabled: true,// 二级联动，默认状态下，如果用户没有点击联动的一级列表，则二级列表为禁用状态
         checkMobData: '',// 检测手机号返回的数据
@@ -49,7 +47,7 @@ Page({
     // 页面加载时
     onLoad: function () {
         var session_id = wx.getStorageSync('sessionId');
-     
+
         if (session_id) {
             var user_name = wx.getStorageSync('userName').user_name;
             var sessionId = wx.getStorageSync('sessionId');
@@ -155,7 +153,8 @@ Page({
                     var checkMobData = res.data ? res.data : '';
                     var inputName = checkMobData.name ? checkMobData.name : '';
                     var gender = checkMobData.gender ? 0 : 1;
-                    var vt = checkMobData.vt ? 'V' : 'P';
+                    // var vt = checkMobData.vt ? 'V' : 'P';
+                    var vt = checkMobData.customer_visit_type_d9d ? 'V' : 'P';
                     var ageViewData = checkMobData.age_composition_name ? checkMobData.age_composition_name : '';
                     var ageId = checkMobData.age_composition_id ? checkMobData.age_composition_id : '';
                     var sellViewData = checkMobData.sale_type_d9d_name ? checkMobData.sale_type_d9d_name : '';
@@ -234,13 +233,10 @@ Page({
 
     // 认知途径地点信息索引
     bindPickerPlace: function (e) {
-        // var placeIndex = e.detail.value;
-        // var cognitive_approach_id = knowsData[this.data.knowsIndex].items[placeIndex].value;
         var need_options_data = knowsData[this.data.knowsIndex].items[e.detail.value];// 180530 新增：标签值是否显示
 
         this.setData({
             placeIndex: e.detail.value,
-            // cognitive_approach_id: cognitive_approach_id,
             cognitive_approach_id: need_options_data.value,
             knowsViewData2: this.data.knowsSecondArr[e.detail.value],
             need_options_data: need_options_data// 180530 新增：标签值是否显示
@@ -335,20 +331,6 @@ Page({
         }, '', { 'Content-Type': 'application/json' })
     },
 
-    // textareaContent 获取内容输入框的数据
-    textareaContent: function (e) {
-        this.setData({
-            content: e.detail.value
-        })
-    },
-
-    // textareaNote 获取备注输入框的数据
-    textareaNote: function (e) {
-        this.setData({
-            note: e.detail.value
-        })
-    },
-
     // 点击按钮 提交表单数据
     formSubmit: function (e) {
         console.log(e);
@@ -382,14 +364,13 @@ Page({
             session_id: this.data.sessionId,
             mo_data: str
         };
-        console.log(obj);
-        console.log(Boolean(obj.mobile && obj.customer_name && obj.content && this.data.ageId && this.data.cardId && this.data.cognitive_approach_type_id && this.data.cognitive_approach_id));
 
+        console.log(obj);
+        console.log(params);
 
         if (obj.mobile && obj.customer_name && obj.content && this.data.ageId && this.data.cardId && this.data.cognitive_approach_type_id && this.data.cognitive_approach_id) {
             app.request(app.api.uploadUrl, params, function (res) {
                 if (res.code == 200) {
-                    wx.hideLoading();
                     if (res.data[0].isOk == true) {
                         console.log('保存成功！');
                         wx.switchTab({
@@ -404,17 +385,17 @@ Page({
                         })
                     }
                 } else {
-                    wx.hideLoading();
                     wx.showModal({
                         title: '提示',
                         content: '网络连接错误，请重新上传！',
                         showCancel: false
                     })
                 }
+                wx.hideLoading();
+
             }, 'POST')
 
         } else {
-            wx.hideLoading();
             wx.showModal({
                 title: '提示',
                 content: '上传失败，除备注外都是必填项！',

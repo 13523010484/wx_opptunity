@@ -64,6 +64,9 @@ var config = {
     // 客户检测手机号的接口
     checkClientMobileUrl: `${host}/app/user/center?act=do_check_by_mobile_prefix_suffix`,
 
+    // 取消绑定的接口
+    cancelBindUrl: `${host}/app/common?act=cancel_bind_user`,
+
 };
 
 module.exports = config

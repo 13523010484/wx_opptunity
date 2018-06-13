@@ -8,19 +8,21 @@ page {
     margin: 90rpx auto 40rpx;
 }
 
-.page_avatar>image {
+.page_avatar>image,.page_avatar>.userinfo-avatar {
     margin: 0 auto;
     width: 120rpx;
     height: 120rpx;
     display: block;
     border-radius: 50%;
     background-color: #eee;
+    overflow: hidden;
 }
 
-.page_avatar>view {
+.page_avatar>view,.page_avatar>.userinfo-nickname {
     line-height: 48rpx;
     font-size: 32rpx;
     text-align: center;
+    display: block;
     color: #666;
     margin-top: 10rpx;
 }

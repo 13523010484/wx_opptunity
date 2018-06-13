@@ -23,19 +23,27 @@
                     <view>{{item.mobile_phone}}</view>
                 </view>
             </view>
-
         </view>
 
         <!-- 访问类型  -->
         <view class='item'>
             <view>访问类型</view>
             <radio-group class='radio-group' name='vt'>
-                <view wx:for='{{vtTypeArr}}' wx:key='index'>
+                <!-- <view wx:for='{{vtTypeArr}}' wx:key='index'>
                     <label class='ui-check'>
                         <radio value='{{index==0?"V":"P"}}' checked='{{index==0?"checked":""}}' />
                         <view class='cell'>{{vtTypeArr[index]}}</view>
                     </label>
-                </view>
+                </view> -->
+
+                <label class='ui-check'>
+                    <radio value='V' checked='{{vt=="V"?"checked":""}}' />
+                    <view class='cell'>来访</view>
+                </label>
+                <label class='ui-check'>
+                    <radio value='P' checked='{{vt=="P"?"checked":""}}' />
+                    <view class='cell'>来电</view>
+                </label>
             </radio-group>
         </view>
 
@@ -56,12 +64,14 @@
             <view class='item'>
                 <view>性别</view>
                 <radio-group class='radio-group' name='gender'>
-                    <view wx:for='{{genderArr}}' wx:key='index'>
-                        <label class='ui-check'>
-                            <radio value='{{index==0?"1":"0"}}' checked='{{index==0?"checked":""}}' />
-                            <view class='cell'>{{genderArr[index]}}</view>
-                        </label>
-                    </view>
+                    <label class='ui-check'>
+                        <radio value='1' checked='{{gender==0?"checked":""}}' />
+                        <view class='cell'>男</view>
+                    </label>
+                    <label class='ui-check'>
+                        <radio value='0' checked='{{gender==1?"checked":""}}' />
+                        <view class='cell'>女</view>
+                    </label>
                 </radio-group>
             </view>
 
@@ -93,7 +103,6 @@
                 <view class='item'>
                     <view>认知渠道</view>
                     <view class='picker {{disabled == true?"disabled-color":""}}'>{{knowsViewData2}}</view>
-                    <!-- <view class='picker {{disabled == true?"disabled-color":""}}'>{{knowsViewData2||'请先选择认知渠道类别'}}</view> -->
                 </view>
             </picker>
 
@@ -114,13 +123,13 @@
             <!-- 备注  -->
             <view class='page-part page-part_content'>
                 <view>内容：</view>
-                <textarea class='textarea' auto-height='true' maxlength='' name='content' bindinput='textareaContent' placeholder="请输入..."></textarea>
+                <textarea class='textarea' auto-height='true' name='content' placeholder="请输入..."></textarea>
             </view>
 
             <!-- 备注  -->
             <view class='page-part_content note'>
                 <view>备注：</view>
-                <textarea class='textarea' auto-height='true' name='note' bindinput='textareaNote' placeholder='请输入...'></textarea>
+                <textarea class='textarea' auto-height='true' name='note' placeholder='请输入...'></textarea>
             </view>
             <button formType="submit" class='btn'>保存</button>
         </view>
