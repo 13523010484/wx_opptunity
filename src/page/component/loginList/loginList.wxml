@@ -1,5 +1,5 @@
 <view class='page'>
-    <block>
+    <block wx:if='{{listUser.length}}'>
         <view class='title'>当前绑定账户：</view>
         <radio-group>
             <label id='{{listUser[index].user_id}}' data-radio-id='{{listUser[index].user_id}}' bindtap='bindNewUser' wx:for='{{listUser}}' wx:key='index'>

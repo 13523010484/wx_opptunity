@@ -8,7 +8,7 @@ App({
         var self = this, sessionId = wx.getStorageSync('sessionId');// 获取缓存中的sessionId;
 
         // 检测版本号的接口
-        self.request(self.api.checkVersionUrl, { OS: 3, verIndex: 5 }, function (res) {
+        self.request(self.api.checkVersionUrl, { OS: 3, verIndex: 6 }, function (res) {
             console.log('检测版本号返回数据：');
             console.log(res);
             if (res.code == 200) {
