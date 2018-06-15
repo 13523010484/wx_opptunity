@@ -13,14 +13,12 @@ Page({
         cardArr: [],// 获取卡类别数据
         knowsFirstArr: [],// 获取认知途径渠道信息
         knowsSecondArr: [],// 获取认知途径地点信息
-        genderArr: ['男', '女'],// 男、女数据
-        vtTypeArr: ['来访', '来电'],// 来电、来访数据
         ageIndex: '',// 年龄层索引下标
         cardIndex: '',// 营销类型索引下标
         knowsIndex: '',// 认知途径渠道信息索引下标
         placeIndex: 1,// 认知途径地点信息索引下标
         phone: '',// 用户输入的手机号
-        inputName: '',// 用户姓名
+        //inputName: '',// 用户姓名
         hiddenStatus: true,// 点击检测时，如果手机号输入不正确或者手机号正确但此手机号在保护期，隐藏编辑客户信息的类别项
         disabled: true,// 二级联动，默认状态下，如果用户没有点击联动的一级列表，则二级列表为禁用状态
         checkMobData: '',// 检测手机号返回的数据
@@ -68,6 +66,13 @@ Page({
                 url: '/page/getUserInfo/getUserInfo',
             })
         }
+    },
+
+    // 访问类型的事件
+    radio_change: function(e){
+        this.setData({
+            vt: e.detail.value
+        })
     },
 
     // changeStatus 点击icon图标显示销售员列表
@@ -150,36 +155,22 @@ Page({
             }
             app.request(app.api.checkMobileUrl, params, function (res) {
                 if (res.code == 200 && !res.data.hasProtected) {
-                    var checkMobData = res.data ? res.data : '';
-                    var inputName = checkMobData.name ? checkMobData.name : '';
-                    var gender = checkMobData.gender ? 0 : 1;
-                    // var vt = checkMobData.vt ? 'V' : 'P';
-                    var vt = checkMobData.customer_visit_type_d9d ? 'V' : 'P';
-                    var ageViewData = checkMobData.age_composition_name ? checkMobData.age_composition_name : '';
-                    var ageId = checkMobData.age_composition_id ? checkMobData.age_composition_id : '';
-                    var sellViewData = checkMobData.sale_type_d9d_name ? checkMobData.sale_type_d9d_name : '';
-                    var cardId = checkMobData.sale_type_d9d ? checkMobData.sale_type_d9d : '';
-                    var knowsViewData = checkMobData.cognitive_approach_pid_name ? checkMobData.cognitive_approach_pid_name : '';
-                    var knowsViewData2 = checkMobData.cognitive_approach_name ? checkMobData.cognitive_approach_name : '';
-                    var cognitive_approach_type_id = checkMobData.cognitive_approach_type_id ? checkMobData.cognitive_approach_type_id : '';
-                    var cognitive_approach_id = checkMobData.cognitive_approach_id ? checkMobData.cognitive_approach_id : '';
+                    var checkMobData = res.data;
                     // 更新页面层数据
                     that.setData({
                         checkMobData: checkMobData,// 点击检测返回的数据
-                        inputName: inputName,// 姓名
-                        gender: gender,// 性别
-                        vt: vt,// 来电来访
-                        ageViewData: ageViewData,// 年龄层
-                        sellViewData: sellViewData,// 营销类型
-                        knowsViewData: knowsViewData,// 认知途径
-                        knowsViewData2: knowsViewData2,// 认知途径第二列
-                        ageId: ageId,// 年龄层ID
-                        cardId: cardId,// 营销类型卡ID
-                        cognitive_approach_type_id: cognitive_approach_type_id,// 认知渠道第一列ID
-                        cognitive_approach_id: cognitive_approach_id,// 认知渠道第二列ID
+                        gender: checkMobData.gender ? 0 : 1,// 性别
+                        vt: checkMobData.customer_visit_type_d9d == 'V' ? 'V' : 'P',// 来电来访
+                        ageViewData: checkMobData.age_composition_name,// 年龄层
+                        sellViewData: checkMobData.sale_type_d9d_name,// 营销类型
+                        knowsViewData: checkMobData.cognitive_approach_pid_name,// 认知途径
+                        knowsViewData2: checkMobData.cognitive_approach_name,// 认知途径第二列
+                        ageId: checkMobData.age_composition_id,// 年龄层ID
+                        cardId: checkMobData.sale_type_d9d,// 营销类型卡ID
+                        cognitive_approach_type_id: checkMobData.cognitive_approach_type_id,// 认知渠道第一列ID
+                        cognitive_approach_id: checkMobData.cognitive_approach_id,// 认知渠道第二列ID
                         hiddenStatus: false// 手机号保护期外的客户可以编辑的信息列表
                     })
-                    console.log(gender);
                 } else {
                     wx.showModal({
                         title: '提示',
@@ -293,15 +284,12 @@ Page({
     // picker  card  获取营销类型的数据请求
     getCard() {
         var that = this;
-
         this.selectAge('20150427111700001001', function (res) {
             var cardData = res.data,
                 cardArr = [];
-
             cardData.items.forEach(function (value) {
                 cardArr.push(value.dict_item_name);
             })
-
             if (res.code == 200) {
                 that.setData({
                     cardData: cardData,
@@ -326,8 +314,6 @@ Page({
                 knowsData: knowsData,
                 knowsFirstArr: knowsFirstArr
             })
-
-
         }, '', { 'Content-Type': 'application/json' })
     },
 
@@ -355,6 +341,7 @@ Page({
             cognitive_approach_options_value: e.detail.value.cognitive_approach_label_value,
             guid: this.data.guid
         };
+        console.log(obj);
 
         var mo_data = [];
         mo_data.push(obj);
@@ -364,9 +351,6 @@ Page({
             session_id: this.data.sessionId,
             mo_data: str
         };
-
-        console.log(obj);
-        console.log(params);
 
         if (obj.mobile && obj.customer_name && obj.content && this.data.ageId && this.data.cardId && this.data.cognitive_approach_type_id && this.data.cognitive_approach_id) {
             app.request(app.api.uploadUrl, params, function (res) {
@@ -392,9 +376,7 @@ Page({
                     })
                 }
                 wx.hideLoading();
-
             }, 'POST')
-
         } else {
             wx.showModal({
                 title: '提示',

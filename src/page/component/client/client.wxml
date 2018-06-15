@@ -28,20 +28,13 @@
         <!-- 访问类型  -->
         <view class='item'>
             <view>访问类型</view>
-            <radio-group class='radio-group' name='vt'>
-                <!-- <view wx:for='{{vtTypeArr}}' wx:key='index'>
-                    <label class='ui-check'>
-                        <radio value='{{index==0?"V":"P"}}' checked='{{index==0?"checked":""}}' />
-                        <view class='cell'>{{vtTypeArr[index]}}</view>
-                    </label>
-                </view> -->
-
+            <radio-group class='radio-group' name='vt' bindchange='radio_change'>
                 <label class='ui-check'>
-                    <radio value='V' checked='{{vt=="V"?"checked":""}}' />
+                    <radio value='V' disabled='{{checkMobData.isSecondVisit}}' checked='{{vt=="V"?"checked":""}}' />
                     <view class='cell'>来访</view>
                 </label>
                 <label class='ui-check'>
-                    <radio value='P' checked='{{vt=="P"?"checked":""}}' />
+                    <radio value='P' disabled='{{checkMobData.isSecondVisit}}' checked='{{vt=="P"?"checked":""}}' />
                     <view class='cell'>来电</view>
                 </label>
             </radio-group>
@@ -58,25 +51,25 @@
             <!-- 姓名  -->
             <view class='item input-tel'>
                 <view>姓名：</view>
-                <input type='text' name='inputName' value='{{inputName}}' placeholder='请输入姓名' />
+                <input type='text' name='inputName' disabled='{{checkMobData.isSecondVisit}}' value='{{checkMobData.name}}' placeholder='请输入姓名' />
             </view>
             <!-- 访问类型  -->
             <view class='item'>
                 <view>性别</view>
                 <radio-group class='radio-group' name='gender'>
                     <label class='ui-check'>
-                        <radio value='1' checked='{{gender==0?"checked":""}}' />
+                        <radio value='1' disabled='{{checkMobData.isSecondVisit}}' checked='{{gender==0?"checked":""}}' />
                         <view class='cell'>男</view>
                     </label>
                     <label class='ui-check'>
-                        <radio value='0' checked='{{gender==1?"checked":""}}' />
+                        <radio value='0' disabled='{{checkMobData.isSecondVisit}}' checked='{{gender==1?"checked":""}}' />
                         <view class='cell'>女</view>
                     </label>
                 </radio-group>
             </view>
 
             <!-- 年龄层 -->
-            <picker bindchange="bindPickerAge" value="{{ageIndex}}" range="{{ageLayerArr}}">
+            <picker bindchange="bindPickerAge" disabled='{{checkMobData.isSecondVisit}}' value="{{ageIndex}}" range="{{ageLayerArr}}">
                 <view class='item'>
                     <view>{{ageLayerData.dict_name}}</view>
                     <view class="picker">{{ageViewData}}</view>
@@ -84,7 +77,7 @@
             </picker>
 
             <!-- 营销类型  -->
-            <picker bindchange="bindPickerCard" value="{{cardIndex}}" range="{{cardArr}}">
+            <picker bindchange="bindPickerCard" disabled='{{checkMobData.isSecondVisit}}' value="{{cardIndex}}" range="{{cardArr}}">
                 <view class='item'>
                     <view>{{cardData.dict_name}}</view>
                     <view class="picker">{{sellViewData}}</view>
@@ -92,14 +85,14 @@
             </picker>
 
             <!-- 认知渠道类别  -->
-            <picker bindchange="bindPickerKnows" value="{{knowsIndex}}" range="{{knowsFirstArr}}">
+            <picker bindchange="bindPickerKnows" disabled='{{checkMobData.isSecondVisit}}' value="{{knowsIndex}}" range="{{knowsFirstArr}}">
                 <view class='item'>
                     <view>认知渠道类别</view>
                     <view class="picker">{{knowsViewData}}</view>
                 </view>
             </picker>
             <!-- 认知渠道 -->
-            <picker disabled='{{disabled}}' bindchange="bindPickerPlace" value="{{placeIndex}}" range="{{knowsSecondArr}}">
+            <picker disabled='{{disabled}}' disabled='{{checkMobData.isSecondVisit}}' bindchange="bindPickerPlace" value="{{placeIndex}}" range="{{knowsSecondArr}}">
                 <view class='item'>
                     <view>认知渠道</view>
                     <view class='picker {{disabled == true?"disabled-color":""}}'>{{knowsViewData2}}</view>
@@ -110,7 +103,7 @@
             <view class='item need_options' wx:if='{{need_options_data.need_options}}'>
                 <view>{{need_options_data.options_label_name}}</view>
                 <view>
-                    <input type='text' name='cognitive_approach_label_value' placeholder='请输入...' />
+                    <input type='text' disabled='{{checkMobData.isSecondVisit}}' name='cognitive_approach_label_value' placeholder='请输入...' />
                 </view>
             </view>
 
