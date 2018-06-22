@@ -9,7 +9,6 @@
                 </view>
                 <icon class='{{ open ? "" : "icon-cancel" }}' type='cancel' color='{{ open ? "" : "#4a90e2" }}' />
             </view>
-
             <checkbox-group class='item-wrap' wx:if="{{open}}" bindchange="checkboxChange">
                 <label wx:for='{{groupUsers}}' wx:key='{{index}}'>
                     <checkbox value='{{item.user_id}}' checked="{{item.checked}}" />
@@ -24,7 +23,6 @@
                 </view>
             </view>
         </view>
-
         <!-- 访问类型  -->
         <view class='item'>
             <view>访问类型</view>

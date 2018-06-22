@@ -8,9 +8,7 @@ App({
         var self = this, sessionId = wx.getStorageSync('sessionId');// 获取缓存中的sessionId;
 
         // 检测版本号的接口
-        self.request(self.api.checkVersionUrl, { OS: 3, verIndex: 7 }, function (res) {
-            console.log('检测版本号返回数据：');
-            console.log(res);
+        self.request(self.api.checkVersionUrl, { OS: 3, verIndex: 8 }, function (res) {
             if (res.code == 200) {
                 if (res.data.has_new) {
                     // 获取小程序更新机制兼容
@@ -51,8 +49,6 @@ App({
             }
 
         })
-
-
         /**
          *  检测的接口 act=wx_code_login：调用wx.login获取wx_code传递给后台，后台检测用户是否已经绑定，
          *  code=601: 用户尚未绑定，跳转到用户授权的页面，用户点击授权，获取到用户的unionID，跳转到输入用户名密码的
@@ -63,17 +59,13 @@ App({
          * **/
         if (sessionId) {
             self.request(self.api.checkSessionIdUrl, { session_id: sessionId }, function (res) {
-                console.log('检测sessionId是否过期：');
-                console.log(res);
                 if (res.code == 200) {
-                    console.log('200:')
                     // sessionId未过期，跳转到功能列表页
                     wx.switchTab({
                         url: '/page/component/index/index',
                     })
                 } else {
-                    console.log('603:');
-                    // sessionId过期，重新获取wx_code，调用检测的接口将sessionId缓存到本地
+                    // res.code==603 sessionId过期，重新获取wx_code，调用检测的接口将sessionId缓存到本地
                     self.getWxLogin(function (wx_code) {
                         self.request(self.api.unionIdUrl, { wx_code: wx_code }, function (res) {
                             if (res.code == 200) {
@@ -97,8 +89,6 @@ App({
                             url: '/page/getUserInfo/getUserInfo',
                         })
                     } else {
-                        // code=200 账号已经绑定成功，跳转到功能列表页
-                        console.log('用户清空了缓存：');
                         // code=200，但是用户清空了本地缓存，此时缓存sessionId到本地，并跳转到功能列表页
                         wx.setStorageSync('sessionId', res.data.session_id);
                         wx.setStorageSync('userName', res.data);
@@ -109,7 +99,6 @@ App({
                 })
             })
         }
-
     },
 
     // 封装网络请求的接口
@@ -157,5 +146,4 @@ App({
             }
         })
     }
-
 })
