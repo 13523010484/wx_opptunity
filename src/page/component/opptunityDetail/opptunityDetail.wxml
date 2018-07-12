@@ -8,6 +8,10 @@
             <view>电话</view>
             <view>{{data.mobile}}</view>
         </view>
+        <view class="item">
+            <view>微信号</view>
+            <view>{{data.weixin}}</view>
+        </view>
         <view class="item other-tel">
             <view class='title'>其他电话</view>
             <view class='tel'>

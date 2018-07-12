@@ -80,7 +80,6 @@ Page({
     // changeStatus 点击icon图标显示销售员列表
     changeStatus: function(e) {
         this.data[e.currentTarget.id] = !this.data[e.currentTarget.id]
-
         var checkedArray = this.data.groupUsersIdStr,
             self = this;
         var groupUsers = this.data.groupUsers
@@ -97,7 +96,6 @@ Page({
             })
         } else {
             groupUsers.forEach(function(item, index) {
-
                 if (checkedArray.indexOf(item.user_id) >= 0) {
                     groupUsers[index].checked = false
                 }
@@ -231,7 +229,6 @@ Page({
     // 认知途径地点信息索引
     bindPickerPlace: function(e) {
         var need_options_data = knowsData[this.data.knowsIndex].items[e.detail.value]; // 180530 新增：标签值是否显示
-
         this.setData({
             placeIndex: e.detail.value,
             cognitive_approach_id: need_options_data.value,
@@ -274,7 +271,6 @@ Page({
     // picker  age  获取年龄层的数据请求
     getAgeLayer() {
         var that = this;
-
         this.selectAge('20131031193233001004', function(res) {
             var ageLayerData = res.data,
                 ageLayerArr = [];
@@ -337,6 +333,7 @@ Page({
 
         var obj = {
             customer_name: e.detail.value.inputName,
+            weixin: e.detail.value.weixin,
             mobile: this.data.phone,
             vt: e.detail.value.vt,
             gender: e.detail.value.gender,

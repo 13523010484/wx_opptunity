@@ -3,7 +3,8 @@ var app = getApp();
 Page({
     data: {
         userInfo: '',
-        user_name: ''
+        user_name: '',
+        source_info: ''// 测试用户打开小程序的场景值
     },
 
     // 页面显示的时候
@@ -12,10 +13,14 @@ Page({
         var userInfo = wx.getStorageSync('userInfo');
         var user_name = wx.getStorageSync('userName').user_name;
         var session_id = wx.getStorageSync('sessionId');
+        var source_info = JSON.stringify(wx.getStorageSync('sourceInfo'));
+        console.log(source_info);
+
         if (session_id) {
             this.setData({
                 userInfo: userInfo,
-                user_name: user_name
+                user_name: user_name,
+                source_info: source_info
             })
 
             if (!wx.getStorageSync('userInfo')) {

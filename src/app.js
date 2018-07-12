@@ -8,7 +8,7 @@ App({
         var self = this, sessionId = wx.getStorageSync('sessionId');// 获取缓存中的sessionId;
 
         // 检测版本号的接口
-        self.request(self.api.checkVersionUrl, { OS: 3, verIndex: 8 }, function (res) {
+        self.request(self.api.checkVersionUrl, { OS: 3, verIndex: 9 }, function (res) {
             if (res.code == 200) {
                 if (res.data.has_new) {
                     // 获取小程序更新机制兼容
@@ -99,6 +99,12 @@ App({
                 })
             })
         }
+    },
+
+    // 声明周期--监听页面显示
+    onShow: function(options){
+        console.log('onShow:');
+        wx.setStorageSync('sourceInfo', options);
     },
 
     // 封装网络请求的接口
