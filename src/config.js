@@ -1,10 +1,6 @@
 /**
  * 小程序配置文件
  */
-var host = "https://cms.orenda.com.cn"
-// var host = "http://192.16.8.40:8081"// 海斌
-// var host = "http://192.16.8.34:8082"// 克进
-// var host = "http://192.16.8.37:8082"// 宁宁
 
 
 var config = {
